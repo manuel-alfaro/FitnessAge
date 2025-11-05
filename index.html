@@ -7,13 +7,13 @@
     <!-- Importerer Tailwind CSS for rask og pen styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- NYTT: Importerer "Inter" fonten, standard for moderne UI -->
+    <!-- Importerer "Inter" fonten, standard for moderne UI -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* === NYTT: Overganger (Den viktige endringen) === */
+        /* === Overganger === */
         .scene {
             position: fixed; 
             top: 0;
@@ -23,16 +23,13 @@
             overflow: hidden; 
             background-color: #000;
             
-            /* NYTT: Vi styrer synlighet med opacity (gjennomsiktighet) */
             opacity: 0;
             pointer-events: none; /* Kan ikke klikkes/interageres med når usynlig */
             
-            /* NYTT: Dette er den "myke" overgangen! 400ms fade. */
             transition: opacity 0.4s ease-in-out; 
         }
         
         .scene.active {
-            /* NYTT: Den aktive scenen er synlig og interaktiv */
             opacity: 1;
             pointer-events: auto; 
         }
@@ -48,10 +45,10 @@
         }
         /* Ny klasse for å 'kutte' toppen av videoen */
         .video-crop-top {
-            object-position: bottom; /* ENDRET: Tilbake til 'bottom' for å kutte toppen som du ba om */
+            object-position: bottom; /* Kutter toppen */
         }
 
-        /* NYTT: Setter Inter som hovedfont for hele appen */
+        /* Setter Inter som hovedfont for hele appen */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
         }
@@ -61,32 +58,30 @@
             transform: scaleX(-1);
         }
 
-        /* === NYTT: NEDTELLINGSSIDE STYLING (Justert for opacity-overgang) === */
-        
-        /* FIKS: 'display: flex' må være på basis-klassen (ikke .active) */
+        /* === NEDTELLINGSSIDE STYLING === */
         .scene.countdown-video-scene {
-             display: flex; 
-             flex-direction: column;
-             justify-content: center; /* ENDRET: Fra flex-start */
-             align-items: center; /* Senter videoen horisontalt */
-             padding-bottom: 10vh; /* ENDRET: Flyttet padding fra toppen til bunnen */
+              display: flex; 
+              flex-direction: column;
+              justify-content: center;
+              align-items: center; 
+              padding-bottom: 10vh;
         }
         
         .countdown-video-scene video {
-            width: auto; /* La videoen bestemme bredden basert på høyden */
-            height: 50vh; /* Sett høyden til 50% av skjermhøyden */
+            width: auto; 
+            height: 50vh; 
             max-width: 100vw;
-            object-fit: contain; /* Sørg for at hele videoen vises */
+            object-fit: contain; 
         }
         
         .countdown-text-box h2 {
             font-size: 3.5rem;
             font-weight: 500;
-            color: #FFFFFF; /* ENDRET: Fra grønn til hvit */
-            animation: pulse-text-green 2s infinite; /* Pulserende animasjon for KUN tekst */
+            color: #FFFFFF;
+            animation: pulse-text-green 2s infinite; 
         }
         
-        /* Animasjon for pulserende grønn TEKST (brukes også av counter-scenen) */
+        /* Animasjon for pulserende grønn TEKST */
         @keyframes pulse-text-green {
             0% {
                 opacity: 0.7;
@@ -102,13 +97,12 @@
             }
         }
         
-        /* NY KLASSE for å bruke animasjonen på rapporten */
+        /* KLASSE for å bruke animasjonen på rapporten */
         .animate-pulse-green-report {
             animation: pulse-text-green 2s infinite;
         }
 
-        /* === NYTT: "GO!" ANIMASJON === */
-        /* FIKS: 'display: flex' må være på basis-klassen (ikke .active) */
+        /* === "GO!" ANIMASJON === */
         .scene-go {
             display: flex;
             align-items: center;
@@ -116,17 +110,15 @@
         }
 
         .go-text {
-            font-size: 20rem; /* Stooor tekst */
+            font-size: 20rem; 
             font-weight: 700;
-            color: #2ecc71; /* Grønn */
+            color: #2ecc71; 
             text-shadow: 0 0 50px rgba(46, 204, 113, 0.7);
             
-            /* FIKS: Animasjon starter kun når .active klassen er på */
             animation: none;
         }
         
         .scene-go.active .go-text {
-             /* Starter animasjonen på nytt hver gang */
             animation: zoom-in-out 1.5s ease-in-out;
         }
 
@@ -145,7 +137,7 @@
             }
         }
 
-        /* === NYTT: RAPPORT-SIDE (SCENE 18) STYLING === */
+        /* === RAPPORT-SIDE (SCENE 18) STYLING === */
         
         /* Aurora-glød-effekter for bakgrunnen */
         .aurora-blur {
@@ -174,6 +166,19 @@
             animation: drift 25s infinite alternate ease-in-out;
         }
         
+        /* NY: Lilla form for oversikt-scenen */
+        .aurora-shape-3 {
+            position: absolute;
+            top: 20vh;
+            right: 5vw;
+            width: 35vw;
+            height: 35vw;
+            background-color: #9b59b6; /* Lilla */
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: drift 18s infinite alternate ease-in-out;
+        }
+        
         @keyframes drift {
             0% {
                 transform: translateX(0) translateY(0);
@@ -184,17 +189,15 @@
         }
         
         /* FIKS: Plasser rapporten høyere opp */
-        /* FIKS: 'display: flex' må være på basis-klassen (ikke .active) */
         #scene-18 {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* ENDRET FRA 'center' */
-            padding-top: 15vh; /* NY for å dytte det ned fra toppen */
+            justify-content: flex-start; /* Starter fra toppen */
+            padding-top: 15vh; 
         }
         
-        /* FIKS: (MYE ENKLERE) SENTRERING */
-        /* Begge elementene er i samme grid-celle, så de er perfekt stablet */
+        /* Sentrering av Real Age og Fitness Age tallene */
         #report-real-age,
         #report-new-age {
             grid-area: 1 / 1; /* Plasserer begge i samme celle (rad 1, kol 1) */
@@ -215,29 +218,27 @@
 <body class="h-full text-white">
 
     <!-- =========== SCENE 0: SCREENSAVER (Default) =========== -->
-    <!-- ENDRET: Dette er nå SCENE 1 (etter iframe) -->
     <div id="scene-0" class="scene">
         <video src="https://storage.googleapis.com/intro_alphatek/videoer/Tests%20Presentation.mp4" 
-               autoplay loop muted playsinline></video>
+                autoplay loop muted playsinline></video>
     </div>
 
     <!-- =========== SCENE 1: FITNESS AGE OVERSIKT =========== -->
-    <!-- ENDRET: Dette er nå SCENE 2 (etter iframe) -->
     <div id="scene-1" class="scene">
-        <!-- ENDRET: Hele scenen er nå en scrollbar kolonne -->
+        <!-- Hele scenen er nå en scrollbar kolonne -->
         <div class="flex flex-col h-full overflow-y-auto">
             
-            <!-- Topp-seksjon (Header) - ENDRET: h-[50vh] -->
+            <!-- Topp-seksjon (Header) -->
             <div class="h-[50vh] relative overflow-hidden flex-shrink-0">
                 <!-- Bakgrunnsvideo -->
                 <video id="scene-1-video" src="https://storage.googleapis.com/intro_alphatek/videoer/Age%20Test%202%20-%20NO%20TEXT%20ON%20-%20Alphatatek%20-%204k%20.mp4" 
-                       autoplay loop muted playsinline 
-                       class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
+                        autoplay loop muted playsinline 
+                        class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
                 
                 <!-- Fade fra bunnen av videoen -->
                 <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
                 
-                <!-- "Ola Nordman" Login Ikon (uendret) -->
+                <!-- "Ola Nordman" Login Ikon -->
                 <div class="absolute top-6 right-8 flex items-center space-x-3 z-20">
                     <span class="text-white text-lg font-medium">Ola Nordman</span>
                     <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
@@ -248,17 +249,16 @@
                     </div>
                 </div>
 
-                <!-- ENDRET: Teksten er nå pakket inn i en "Frosted Glass"-boks -->
+                <!-- Teksten i en "Frosted Glass"-boks -->
                 <div class="absolute inset-0 flex flex-col items-center justify-center z-10 text-center p-8">
                     
-                    <!-- NY: "Frosted Glass"-wrapper som bedt om (uten border) -->
                     <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-8">
                         <h1 class="text-3xl font-semibold opacity-80 mb-1">Fitness Age</h1>
                         
                         <div class="flex items-end justify-center">
-                            <!-- Fiktiv alder -->
+                            <!-- Fiktiv alder (Oppdateres av JS i fremtiden) -->
                             <span class="text-9xl font-bold text-green-400">32</span>
-                            <!-- Fiktiv progresjon -->
+                            <!-- Fiktiv progresjon (Oppdateres av JS i fremtiden) -->
                             <span class="text-4xl font-bold text-green-400 ml-2 pb-2"><sup>-2</sup></span>
                         </div>
                         <!-- Ny tekst for historisk data -->
@@ -270,12 +270,23 @@
                 </div>
             </div>
 
-            <!-- Bunn-seksjon (Testliste) - ENDRET: Ikke lenger h-1/2, bruker glass-kort -->
-            <div class="bg-black p-6 flex-grow">
-                <h2 class="text-3xl font-bold mb-5 px-2">Your Tests</h2>
+            <!-- Bunn-seksjon (Testliste) -->
+            <!-- ENDRET: Lagt til relative og overflow-hidden for aurora-effekt -->
+            <div class="bg-black p-6 flex-grow relative overflow-hidden">
                 
-                <!-- ENDRET: space-y-4 (tettere) -->
-                <div class="space-y-4 max-w-4xl mx-auto"> 
+                <!-- NY: Aurora-bakgrunnseffekt (Blå, Grønn, Lilla) -->
+                <div class="aurora-blur absolute inset-0 overflow-hidden z-0">
+                    <!-- Redusert opacity litt for å ikke være forstyrrende -->
+                    <div class="aurora-shape-1" style="opacity: 0.2;"></div>
+                    <div class="aurora-shape-2" style="opacity: 0.15;"></div>
+                    <div class="aurora-shape-3"></div>
+                </div>
+
+                <!-- ENDRET: Lagt til relative z-10 for å plassere innhold over aurora -->
+                <h2 class="text-3xl font-bold mb-5 px-2 relative z-10">Your Tests</h2>
+                
+                <!-- ENDRET: Lagt til relative z-10 -->
+                <div class="space-y-4 max-w-4xl mx-auto relative z-10"> 
                     
                     <!-- Test 1: Balance (NYTT HYBRID-DESIGN) -->
                     <div class="rounded-2xl shadow-xl border border-white/10 overflow-hidden flex h-48">
@@ -359,14 +370,11 @@
     <!-- SCENE 2: Video "Balance left" -->
     <div id="scene-2" class="scene">
         <video id="video-bal-left" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
-        <!-- ENDRET: Posisjonering til pt-[30vh] for å flytte boksen opp -->
+                autoplay loop muted playsinline class="video-crop-top"></video>
+        <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
-            <!-- NYTT "2025" DESIGN: Større boks (max-w-lg) og større tekst -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
-                <!-- Tittel (med farge) - ENDRET: text-5xl, font-medium -->
                 <h2 class="text-5xl font-medium text-blue-300 mb-6 text-center">Balance Test: Right</h2>
-                <!-- Instruksjoner (renere typografi) - ENDRET: text-2xl, font-medium -->
                 <ul class="text-2xl font-medium text-white/90 space-y-3 list-disc list-inside">
                     <li>Lift foot 10 cm.</li>
                     <li>Keep arms by your side.</li>
@@ -378,12 +386,11 @@
 
     <!-- SCENE 3: COUNTER 1 (Balanse Venstre) -->
     <div id="scene-countdown-1" class="scene countdown-video-scene">
-        <!-- ENDRET: Fjernet 'frosted glass'-boks-styling -->
         <div class="countdown-text-box mb-12">
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-1" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 4: GO! 1 (Balanse Venstre) -->
@@ -395,14 +402,11 @@
     <!-- SCENE 6: Video "Balance Right" -->
     <div id="scene-6" class="scene">
         <video id="video-bal-right" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" 
-               autoplay loop muted playsinline class="video-crop-top video-mirrored"></video>
-        <!-- ENDRET: Posisjonering til pt-[30vh] for å flytte boksen opp -->
+                autoplay loop muted playsinline class="video-crop-top video-mirrored"></video>
+        <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
-            <!-- NYTT "2025" DESIGN: Større boks (max-w-lg) og større tekst -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
-                <!-- Tittel (med farge) - ENDRET: text-5xl, font-medium -->
                 <h2 class="text-5xl font-medium text-blue-300 mb-6 text-center">Balance Test: Left</h2>
-                <!-- Instruksjoner (renere typografi) - ENDRET: text-2xl, font-medium -->
                 <ul class="text-2xl font-medium text-white/90 space-y-3 list-disc list-inside">
                     <li>Lift foot 10 cm.</li>
                     <li>Keep arms by your side.</li>
@@ -414,12 +418,11 @@
 
     <!-- SCENE 7: COUNTER 1_RIGHT (Balanse Høyre) -->
     <div id="scene-countdown-bal-right" class="scene countdown-video-scene">
-        <!-- ENDRET: Fjernet 'frosted glass'-boks-styling -->
         <div class="countdown-text-box mb-12">
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-bal-right" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 8: GO! 1_RIGHT (Balanse Høyre) -->
@@ -432,14 +435,11 @@
     <!-- SCENE 10: Video "Jump" -->
     <div id="scene-10" class="scene">
         <video id="video-jump" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Jump.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
-        <!-- ENDRET: Posisjonering til pt-[30vh] for å flytte boksen opp -->
+                autoplay loop muted playsinline class="video-crop-top"></video>
+        <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
-            <!-- NYTT "2025" DESIGN: Større boks (max-w-lg) og større tekst -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
-                <!-- Tittel (med farge) - ENDRET: text-5xl, font-medium -->
                 <h2 class="text-5xl font-medium text-green-300 mb-6 text-center">Squat Jump</h2>
-                <!-- Instruksjoner (renere typografi) - ENDRET: text-2xl, font-medium -->
                 <ul class="text-2xl font-medium text-white/90 space-y-3 list-disc list-inside">
                     <li>Squat down (back straight).</li>
                     <li>Jump up explosively.</li>
@@ -451,12 +451,11 @@
 
     <!-- SCENE 11: COUNTER 2 (Jump) -->
     <div id="scene-countdown-2" class="scene countdown-video-scene">
-        <!-- ENDRET: Fjernet 'frosted glass'-boks-styling -->
         <div class="countdown-text-box mb-12">
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-2" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 12: GO! 2 (Jump) -->
@@ -467,16 +466,12 @@
     <!-- =========== PULL FLYT (FJERNET STEP ON) =========== -->
     <!-- SCENE 14: Video "Pull" -->
     <div id="scene-14" class="scene">
-        <!-- FIKS: Korrigert videolink (fjernet 's' fra 'https.storage') -->
         <video id="video-pull" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Pull.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
-        <!-- ENDRET: Posisjonering til pt-[30vh] for å flytte boksen opp -->
+                autoplay loop muted playsinline class="video-crop-top"></video>
+        <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
-            <!-- NYTT "2025" DESIGN: Større boks (max-w-lg) og større tekst -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
-                <!-- Tittel (med farge) - ENDRET: text-5xl, font-medium -->
                 <h2 class="text-5xl font-medium text-purple-300 mb-6 text-center">Isometric Midthigh Pull</h2>
-                <!-- Instruksjoner (renere typografi) - ENDRET: text-2xl, font-medium -->
                 <ul class="text-2xl font-medium text-white/90 space-y-3 list-disc list-inside">
                     <li>Grasp bar, stand tall.</li>
                     <li>Back straight, arms extended.</li>
@@ -488,12 +483,11 @@
 
     <!-- SCENE 15: COUNTER 3 (Pull) -->
     <div id="scene-countdown-3" class="scene countdown-video-scene">
-        <!-- ENDRET: Fjernet 'frosted glass'-boks-styling -->
         <div class="countdown-text-box mb-12">
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-3" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 16: GO! 3 (Pull) -->
@@ -502,7 +496,6 @@
     </div>
 
     <!-- =========== SCENE 18: FINAL REPORT (MODERNISERT) =========== -->
-    <!-- Denne scenen bruker flex (via #scene-18) for å sentrere innholdet. -->
     <div id="scene-18" class="scene bg-black p-8">
         
         <!-- NYTT: Aurora-bakgrunnseffekter -->
@@ -512,38 +505,31 @@
         </div>
         
         <!-- Alt innhold ligger i z-10 over aurora-effekten -->
-        <!-- Wrapperne nedenfor er kontrollert av #scene-18 (flex-kontaineren) -->
         
         <!-- 1. Hoved "Smash" Animasjons-wrapper -->
-        <!-- FIKS: La til 'display: grid' for å stable barna. Fjernet 'relative', 'height' og 'style'. -->
         <div id="report-age-container" class="w-full max-w-lg z-10 grid">
             
-            <!-- 1a. Real Age (ENDRET DESIGN) -->
-            <!-- FIKS: 'text-center' er alt som trengs for sentrering nå -->
+            <!-- 1a. Real Age (Starte synlig, hvit/grå) -->
             <div id="report-real-age" class="text-white text-center">
                 <span class="text-5xl font-medium text-gray-400">Real Age</span>
-                <!-- ENDRET: Mye større, fetere -->
                 <span class="block text-[10rem] font-bold leading-none mt-2">35</span>
             </div>
             
-            <!-- 1b. New Fitness Age (ENDRET DESIGN) -->
-            <!-- FIKS: 'text-center' er alt som trengs. Fjernet inline 'transform'. -->
+            <!-- 1b. New Fitness Age (Starter usynlig/lite, grønn) -->
             <div id="report-new-age" class="text-green-400 opacity-0 text-center">
                 <span class="text-5xl font-medium text-green-400">Fitness Age</span>
-                <!-- ENDRET: Mye større, fetere -->
                 <span class="block text-[10rem] font-bold leading-none mt-2">32</span>
             </div>
         </div>
 
         <!-- 2. De tre boksene (starter usynlige) -->
-        <!-- NY: Satt max-w-2xl for å sentrere boks-kolonnen -->
         <div class="report-boxes-container max-w-2xl w-full grid grid-cols-1 gap-5 mt-12 z-10"> 
             
             <!-- Box 1: Balance (Blå farge) -->
             <div id="report-box-1" class="report-box bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 flex justify-between items-center border border-white/10 opacity-0 translate-y-5">
                 <div class="flex flex-col">
                     <h2 class="text-3xl font-semibold text-blue-300">Balance Age</h2>
-                    <!-- NYTT: Tekst som fader inn -->
+                    <!-- Tekst som fader inn (Oppdateres med data.reportText1) -->
                     <p id="report-text-1" class="text-lg text-white/80 mt-1 opacity-0">1 year improvement</p>
                 </div>
                 <div class="flex items-end">
@@ -556,7 +542,7 @@
             <div id="report-box-2" class="report-box bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 flex justify-between items-center border border-white/10 opacity-0 translate-y-5">
                 <div class="flex flex-col">
                     <h2 class="text-3xl font-semibold text-green-300">Functional Age</h2>
-                    <!-- NYTT: Tekst som fader inn -->
+                    <!-- Tekst som fader inn (Oppdateres med data.reportText2) -->
                     <p id="report-text-2" class="text-lg text-white/80 mt-1 opacity-0">Excellent 3 year improvement</p>
                 </div>
                 <div class="flex items-end">
@@ -569,13 +555,13 @@
             <div id="report-box-3" class="report-box bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 flex justify-between items-center border border-white/10 opacity-0 translate-y-5">
                 <div class="flex flex-col">
                     <h2 class="text-3xl font-semibold text-purple-300">Strength Age</h2>
-                    <!-- NYTT: Tekst som fader inn -->
+                    <!-- Tekst som fader inn (Oppdateres med data.reportText3) -->
                     <p id="report-text-3" class="text-lg text-white/80 mt-1 opacity-0">Needs focus (+1 year)</p>
 
                 </div>
                 <div class="flex items-end">
                     <span class="text-5xl font-bold text-white">33</span>
-                    <span class="text-2xl font-bold text-red-400 ml-1 pb-1"><sup>(+1)</sup></span> <!-- Bruker rød for + -->
+                    <span class="text-2xl font-bold text-red-400 ml-1 pb-1"><sup>(+1)</sup></span>
                 </div>
             </div>
         </div>
@@ -590,8 +576,6 @@
     </div>
     
     <!-- =========== NYTT: ENKELT IFRAME-SCENE (erstatter 5, 9, 13, 17) =========== -->
-    <!-- ENDRET: Plassert denne FØR knappene, men ETTER alle andre scener -->
-    <!-- NYTT: Lagt til 'relative' for at posisjonering skal funke -->
     <div id="scene-iframe-container" class="scene relative">
         
         <!-- NYTT: Viser URL-en til iframen -->
@@ -618,15 +602,15 @@
 
     <script>
         // ---------------
-        // 1. FIREBASE KONFIGURASJON (NY: Bruker din config)
+        // 1. FIREBASE KONFIGURASJON
         const firebaseConfig = {
+            // MERK: Bruker din eksisterende konfigurasjon
             apiKey: "AIzaSyDFu-aEtJ17AxIk3B5AjB-BSZ1u0-hY9y4",
             authDomain: "prototypefitnessage.firebaseapp.com",
             projectId: "prototypefitnessage",
             storageBucket: "prototypefitnessage.firebasestorage.app",
             messagingSenderId: "203645458759",
             appId: "1:203645458759:web:6c19ba329bbbafdd745462",
-            // VIKTIG: Legger til databaseURL som compat-scriptet trenger
             databaseURL: "https://prototypefitnessage-default-rtdb.europe-west1.firebasedatabase.app"
         };
         
@@ -634,21 +618,16 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         
-        // NYTT: Hent URL-displayet én gang
+        // Hent URL-displayet én gang
         const urlDisplay = document.getElementById('iframe-url-display');
 
-        // ---------------
-        // 1b. Egendefinert Video Loop for Scene 1
+        // Egendefinert Video Loop for Scene 1 (For å unngå hard loop-klipp)
         const overviewVideo = document.getElementById('scene-1-video');
         if (overviewVideo) {
             overviewVideo.addEventListener('timeupdate', function() {
-                // Sjekk om videoen eksisterer og har en varighet
-                if (this.duration) {
-                    // Når det er 8 sekunder igjen, spol tilbake til start
-                    if ((this.duration - this.currentTime) < 8) {
-                        this.currentTime = 0;
-                        this.play(); // Sørg for at den fortsetter å spille
-                    }
+                if (this.duration && (this.duration - this.currentTime) < 8) {
+                    this.currentTime = 0; 
+                    this.play().catch(e => console.warn("Autoplay blokkert:", e));
                 }
             });
         }
@@ -656,45 +635,45 @@
         // ---------------
         // 2. SCENE-STYRINGS LOGIKK
         
-        // ENDRET: scene-iframe-container er nå FØRST (indeks 0)
-        // Alle andre indekser er forskjøvet +1
+        // Rute-kartet: Alle indekser er forskjøvet +1 pga. Iframe-container på indeks 0
         const sceneIds = [
-            "scene-iframe-container", // 0: Iframe (Base URL, starter her)
-            "scene-0",  // 1: Screensaver (Tidligere 0)
-            "scene-1",  // 2: Overview (Tidligere 1)
+            "scene-iframe-container", // 0: Iframe (Base URL)
+            "scene-0",  // 1: Screensaver
+            "scene-1",  // 2: Overview
             // Balanse Venstre Flyt
-            "scene-2",  // 3: Balance Left Video (Tidligere 2)
-            "scene-countdown-1", // 4: Counter 1 (Tidligere 3)
-            "scene-go-1",        // 5: GO! 1 (Tidligere 4)
-            "scene-iframe-container",  // 6: Iframe (Balance Left)
+            "scene-2",  // 3: Balance Left Video
+            "scene-countdown-1", // 4: Counter 1
+            "scene-go-1",        // 5: GO! 1
+            "scene-iframe-container",  // 6: Iframe (Balance Left Result)
             // Balanse Høyre Flyt
-            "scene-6",  // 7: Balance Right Video (Tidligere 6)
-            "scene-countdown-bal-right", // 8: Counter BalRight (Tidligere 7)
-            "scene-go-bal-right",        // 9: GO! BalRight (Tidligere 8)
-            "scene-iframe-container", // 10: Iframe (Balance Right)
+            "scene-6",  // 7: Balance Right Video
+            "scene-countdown-bal-right", // 8: Counter BalRight
+            "scene-go-bal-right",        // 9: GO! BalRight
+            "scene-iframe-container", // 10: Iframe (Balance Right Result)
             // Hopp Flyt
-            "scene-10", // 11: Jump Video (Tidligere 10)
-            "scene-countdown-2", // 12: Counter 2 (Tidligere 11)
-            "scene-go-2",        // 13: GO! 2 (Tidligere 12)
-            "scene-iframe-container", // 14: Iframe (Jump)
+            "scene-10", // 11: Jump Video
+            "scene-countdown-2", // 12: Counter 2
+            "scene-go-2",        // 13: GO! 2
+            "scene-iframe-container", // 14: Iframe (Jump Result)
             // Styrke Flyt
-            "scene-14", // 15: Pull Video (Tidligere 14)
-            "scene-countdown-3", // 16: Counter 3 (Tidligere 15)
-            "scene-go-3",        // 17: GO! 3 (Tidligere 16)
-            "scene-iframe-container", // 18: Iframe (Pull)
-            "scene-18"  // 19: Final Report (Tidligere 18)
+            "scene-14", // 15: Pull Video
+            "scene-countdown-3", // 16: Counter 3
+            "scene-go-3",        // 17: GO! 3
+            "scene-iframe-container", // 18: Iframe (Pull Result)
+            "scene-18"  // 19: Final Report <--- Dette er scenen du har problemer med!
         ];
         
         let currentSceneIndex = 0;
-        let autoAdvanceTimer = null; // Timer-variabel for "GO!"-scenen
-        let reportAnimationTimer = null; // Timer for rapport-animasjon
+        let autoAdvanceTimer = null; 
+        
+        // FIKS: reportAnimationTimers er nå en ARRAY for å lagre ALLE timer-ID-er.
+        let reportAnimationTimers = []; 
     
         /**
          * Viser en spesifikk scene basert på indeks og stopper alle andre videoer.
          */
         function showScene(index) {
-            // Legg til feilsøking
-            console.log(`showScene called with index: ${index}`);
+            console.log(`showScene called with index: ${index} (${sceneIds[index]})`);
 
             if (index < 0 || index >= sceneIds.length) {
                 console.error("Ugyldig sceneindeks:", index);
@@ -703,45 +682,48 @@
 
             currentSceneIndex = index;
             const sceneIdToShow = sceneIds[currentSceneIndex];
-            console.log(`Showing scene ID: ${sceneIdToShow}`);
 
-            // 1. Gå gjennom alle scener
+            // 1. Rydd opp alle eksisterende timere FØR du bytter scene
+            if (autoAdvanceTimer) {
+                clearTimeout(autoAdvanceTimer);
+                autoAdvanceTimer = null;
+            }
+            
+            // VIKTIG FIKS: Riktig opprydding av rapport-animasjonstimere
+            if (reportAnimationTimers.length > 0) {
+                console.log(`Clearing ${reportAnimationTimers.length} report animation timers.`);
+                reportAnimationTimers.forEach(clearTimeout);
+                reportAnimationTimers = []; // Reset listen
+            }
+
+            // 2. Gå gjennom alle scener
             document.querySelectorAll('.scene').forEach(scene => {
                 const video = scene.querySelector('video');
                 
                 if (scene.id === sceneIdToShow) {
-                    // 2. Vis den aktive scenen (CSS-en håndterer 'opacity' faden)
                     scene.classList.add('active');
                     
-                    // 3. Start videoen i den aktive scenen (hvis den har en)
+                    // Start/spol video
                     if (video) {
-                        // Ikke spol tilbake scene-1-video, den har sin egen loop-logikk
                         if (video.id !== 'scene-1-video') {
-                            video.currentTime = 0; // Spol tilbake
+                            video.currentTime = 0; 
                         }
                         video.play().catch(e => console.warn("Autoplay blokkert:", e));
                     }
                 } else {
-                    // 4. Skjul inaktive scener (CSS-en håndterer 'opacity' faden)
                     scene.classList.remove('active');
-                    
-                    // 5. Paus videoen i inaktive scener
                     if (video) {
                         video.pause();
                     }
                 }
             });
             
-            // NY LOGIKK: Sett iframe URL basert på hvilken scene som vises NÅ
-            // Dette starter innlastingen av siden i bakgrunnen.
+            // 3. Sett iframe URL basert på hvilken scene som vises NÅ
             const iframe = document.getElementById('test-iframe');
-            let newUrl = ""; // Tom streng som standard
+            let newUrl = ""; 
 
             switch (sceneIdToShow) {
-                // ENDRET: Bruker /cop i stedet for /balance
                 case "scene-2": // Balance Left Inst
-                    newUrl = "https://pwr.alphatek.no/cop";
-                    break;
                 case "scene-6": // Balance Right Inst
                     newUrl = "https://pwr.alphatek.no/cop";
                     break;
@@ -756,40 +738,18 @@
                 case "scene-18": // Report
                     newUrl = "https://pwr.alphatek.no"; // Reset to home
                     break;
-                case "scene-iframe-container": // Når vi faktisk viser iframen
-                    // Ingen endring av newUrl her, vi vil beholde den URL-en som ble pre-lastet.
-                    break;
             }
             
             // Håndterer forhåndslasting:
-            // Hvis vi har en ny URL (dvs. vi er på en instruksjonsvideo eller reset)
-            // og den er forskjellig fra nåværende src, oppdater iframe og display.
             if (newUrl && iframe.src !== newUrl) {
                 console.log("Pre-loading iframe src:", newUrl);
                 iframe.src = newUrl;
                 urlDisplay.textContent = newUrl;
             }
             
-            // VIKTIG: Oppdaterer URL-displayet HVER GANG vi viser iframe-scenen,
-            // slik at den viser den nåværende lastede URL-en.
+            // VIKTIG: Oppdaterer URL-displayet HVER GANG vi viser iframe-scenen
             if (sceneIdToShow === 'scene-iframe-container') {
                 urlDisplay.textContent = iframe.src;
-            }
-
-
-            // Tøm enhver eksisterende "GO!"-timer
-            if (autoAdvanceTimer) {
-                clearTimeout(autoAdvanceTimer);
-                autoAdvanceTimer = null;
-            }
-            // Tøm enhver eksisterende rapport-animasjonstimer
-            if (reportAnimationTimer) {
-                // Bruker en løkke for å tømme alle mulige timere
-                let timer = reportAnimationTimer;
-                while(timer--) {
-                    clearTimeout(timer);
-                }
-                reportAnimationTimer = null;
             }
 
             // Håndter "GO!" scenens automatiske overgang
@@ -798,58 +758,47 @@
                 autoAdvanceTimer = setTimeout(() => {
                     console.log("GO! scene finished. Calling next scene.");
                     showScene(index + 1); // Gå til neste scene (iframe)
-                }, 1500); // 1.5 sekunder
+                }, 1500); 
             }
 
-            // NY: Håndter animasjonsflyt for SCENE 18 (Rapport)
-            // (Denne logikken starter animasjonene *inne* i scenen)
-            if (sceneIdToShow === 'scene-18') { // 'scene-18' er nå på INDEKS 19
+            // NY: Håndter animasjonsflyt for SCENE 18 (Rapport) - Indeks 19
+            if (sceneIdToShow === 'scene-18') { 
                 
-                // NYTT: Hent data fra Firebase FØR vi starter animasjonen
+                // Hent data fra Firebase FØR vi starter animasjonen
                 reportDataRef.once('value', (snapshot) => {
                     const data = snapshot.val() || {}; // Hent data eller bruk tomt objekt
                     
+                    console.log("Report Data:", data);
+
                     // --- Oppdater DOM med Firebase-data (med fallbacks) ---
                     
+                    // Hjelpefunksjon for å sette tekst og farge
+                    function updateAgeChange(boxId, ageKey, changeKey, defaultAge, defaultChange, defaultText) {
+                        const ageEl = document.querySelector(`#${boxId} .text-5xl`);
+                        const changeParentEl = document.querySelector(`#${boxId} .text-2xl`);
+                        const changeSupEl = changeParentEl.querySelector('sup');
+                        const textEl = document.getElementById(`report-text-${boxId.slice(-1)}`);
+                        
+                        const age = data[ageKey] || defaultAge;
+                        const changeVal = parseInt(data[changeKey] || defaultChange); 
+                        
+                        ageEl.textContent = age;
+                        changeSupEl.textContent = `(${changeVal > 0 ? '+' : ''}${changeVal})`;
+                        textEl.textContent = data[`reportText${boxId.slice(-1)}`] || defaultText;
+                        
+                        // Fargelogikk: Positiv endring (lavere alder) = Grønn. Negativ endring (høyere alder) = Rød.
+                        changeParentEl.classList.remove('text-green-400', 'text-red-400');
+                        changeParentEl.classList.add(changeVal > 0 ? 'text-red-400' : 'text-green-400');
+                    }
+
                     // 1. Hovedtall
                     document.querySelector('#report-real-age span:last-child').textContent = data.realAge || '35';
                     document.querySelector('#report-new-age span:last-child').textContent = data.fitnessAge || '32';
-
-                    // 2. Boks 1 (Balanse)
-                    const box1AgeEl = document.querySelector('#report-box-1 .text-5xl');
-                    const box1ChangeParentEl = document.querySelector('#report-box-1 .text-2xl');
-                    const box1ChangeSupEl = box1ChangeParentEl.querySelector('sup');
-                    const box1ChangeVal = parseInt(data.balanceChange || 0); // Sørg for at det er et tall
                     
-                    document.getElementById('report-text-1').textContent = data.reportText1 || 'N/A';
-                    box1AgeEl.textContent = data.balanceAge || '0';
-                    box1ChangeSupEl.textContent = `(${box1ChangeVal > 0 ? '+' : ''}${box1ChangeVal})`;
-                    box1ChangeParentEl.classList.remove('text-green-400', 'text-red-400');
-                    box1ChangeParentEl.classList.add(box1ChangeVal > 0 ? 'text-red-400' : 'text-green-400');
-
-                    // 3. Boks 2 (Funksjonell)
-                    const box2AgeEl = document.querySelector('#report-box-2 .text-5xl');
-                    const box2ChangeParentEl = document.querySelector('#report-box-2 .text-2xl');
-                    const box2ChangeSupEl = box2ChangeParentEl.querySelector('sup');
-                    const box2ChangeVal = parseInt(data.functionalChange || 0); // Sørg for at det er et tall
-                    
-                    document.getElementById('report-text-2').textContent = data.reportText2 || 'N/A';
-                    box2AgeEl.textContent = data.functionalAge || '0';
-                    box2ChangeSupEl.textContent = `(${box2ChangeVal > 0 ? '+' : ''}${box2ChangeVal})`;
-                    box2ChangeParentEl.classList.remove('text-green-400', 'text-red-400');
-                    box2ChangeParentEl.classList.add(box2ChangeVal > 0 ? 'text-red-400' : 'text-green-400');
-                    
-                    // 4. Boks 3 (Styrke)
-                    const box3AgeEl = document.querySelector('#report-box-3 .text-5xl');
-                    const box3ChangeParentEl = document.querySelector('#report-box-3 .text-2xl');
-                    const box3ChangeSupEl = box3ChangeParentEl.querySelector('sup');
-                    const box3ChangeVal = parseInt(data.strengthChange || 0); // Sørg for at det er et tall
-                    
-                    document.getElementById('report-text-3').textContent = data.reportText3 || 'N/A';
-                    box3AgeEl.textContent = data.strengthAge || '0';
-                    box3ChangeSupEl.textContent = `(${box3ChangeVal > 0 ? '+' : ''}${box3ChangeVal})`;
-                    box3ChangeParentEl.classList.remove('text-green-400', 'text-red-400');
-                    box3ChangeParentEl.classList.add(box3ChangeVal > 0 ? 'text-red-400' : 'text-green-400');
+                    // 2. Boksene
+                    updateAgeChange('report-box-1', 'balanceAge', 'balanceChange', '34', '-1', '1 year improvement');
+                    updateAgeChange('report-box-2', 'functionalAge', 'functionalChange', '31', '-3', 'Excellent 3 year improvement');
+                    updateAgeChange('report-box-3', 'strengthAge', 'strengthChange', '33', '+1', 'Needs focus (+1 year)');
 
                     // 5. Siste melding
                     document.querySelector('#report-final-message h2').textContent = data.finalMessage || 'Flott innsats!';
@@ -862,12 +811,12 @@
                     const box1 = document.getElementById('report-box-1');
                     const box2 = document.getElementById('report-box-2');
                     const box3 = document.getElementById('report-box-3');
-                    const text1 = document.getElementById('report-text-1'); // NY
-                    const text2 = document.getElementById('report-text-2'); // NY
-                    const text3 = document.getElementById('report-text-3'); // NY
+                    const text1 = document.getElementById('report-text-1'); 
+                    const text2 = document.getElementById('report-text-2'); 
+                    const text3 = document.getElementById('report-text-3'); 
                     const finalMessage = document.getElementById('report-final-message');
                     
-                    // 2. Reset (skjul alt umiddelbart)
+                    // 2. Reset (skjul alt umiddelbart for å starte animasjonen rent)
                     [box1, box2, box3].forEach(box => {
                         box.classList.add('opacity-0', 'translate-y-5');
                     });
@@ -878,61 +827,61 @@
                     // Reset "smash"-effekt
                     realAge.style.transform = 'scale(1)';
                     realAge.style.opacity = '1';
-                    newAge.style.transform = 'scale(0.7)'; // Starter mindre
+                    newAge.style.transform = 'scale(0.7)'; 
                     newAge.style.opacity = '0';
                     newAge.classList.remove('animate-pulse-green-report');
                     
-                    // 3. Start animasjonskjeden (NY TIMING IHT. FORESPØRSEL)
-                    const timers = []; 
+                    // 3. Start animasjonskjeden
+                    const timers = []; 
                     
                     // Boksene fader inn først
                     timers.push(setTimeout(() => {
-                        box1.classList.remove('opacity-0', 'translate-y-5'); // Vis boks 1
-                    }, 500)); // Start etter 500ms
+                        box1.classList.remove('opacity-0', 'translate-y-5'); 
+                    }, 500)); 
                     
                     timers.push(setTimeout(() => {
-                        box2.classList.remove('opacity-0', 'translate-y-5'); // Vis boks 2
-                    }, 1100)); // 600ms etter boks 1
+                        box2.classList.remove('opacity-0', 'translate-y-5'); 
+                    }, 1100)); 
                     
                     timers.push(setTimeout(() => {
-                        box3.classList.remove('opacity-0', 'translate-y-5'); // Vis boks 3
-                    }, 1700)); // 600ms etter boks 2
+                        box3.classList.remove('opacity-0', 'translate-y-5'); 
+                    }, 1700)); 
 
-                    // NYTT: Setningene i boksene fader inn ETTER boksene
+                    // Setningene i boksene fader inn ETTER boksene
                     timers.push(setTimeout(() => {
                         text1.classList.remove('opacity-0');
-                    }, 2000)); // 300ms etter siste boks
+                    }, 2000)); 
 
                     timers.push(setTimeout(() => {
                         text2.classList.remove('opacity-0');
-                    }, 2300)); // 300ms etter tekst 1
+                    }, 2300)); 
 
                     timers.push(setTimeout(() => {
                         text3.classList.remove('opacity-0');
-                    }, 2600)); // 300ms etter tekst 2
+                    }, 2600)); 
                     
                     // "Smash"-effekt (vent 2s ETTER siste tekst)
                     timers.push(setTimeout(() => {
-                        realAge.style.transform = 'scale(0.7)'; // Krymp "Real Age"
+                        realAge.style.transform = 'scale(0.7)'; 
                         realAge.style.opacity = '0';
                         
-                        newAge.style.transform = 'scale(1.1)'; // "Smasher" inn (overshoot)
-                        newAge.style.opacity = '1'; 
-                        newAge.classList.add('animate-pulse-green-report'); // Start pulsering
-                    }, 4600)); // 2600 + 2000
+                        newAge.style.transform = 'scale(1.1)'; 
+                        newAge.style.opacity = '1'; 
+                        newAge.classList.add('animate-pulse-green-report'); 
+                    }, 4600)); 
 
                     // "Settle"-effekt (700ms etter smash, matcher CSS transition)
                     timers.push(setTimeout(() => {
-                        newAge.style.transform = 'scale(1)'; // Går til normal størrelse
-                    }, 5300)); // 4600 + 700
+                        newAge.style.transform = 'scale(1)'; 
+                    }, 5300)); 
 
                     // Vis den siste meldingen (800ms etter "settle")
                     timers.push(setTimeout(() => {
                         finalMessage.classList.remove('opacity-0');
-                    }, 6100)); // 5300 + 800
+                    }, 6100)); 
 
-                    // Lagre antall timere.
-                    reportAnimationTimer = timers.length;
+                    // VIKTIG FIKS: Lagre ALLE timer-ID-ene i arrayet for opprydding
+                    reportAnimationTimers = timers; 
 
                 }); // <-- Avslutter reportDataRef.once()
             }
@@ -940,11 +889,10 @@
 
         // ---------------
         // 3. SIMULERING (Knapper for testing)
-        // ENDRET: Oppdatert logikk for ny rekkefølge
         document.getElementById('nextButton').addEventListener('click', () => {
             let nextIndex = (currentSceneIndex + 1);
-            // ENDRING: Siste scene er rapport (indeks 19). Siste iframe er 18.
-            if (nextIndex >= sceneIds.length || currentSceneIndex === 18) { // 18 er siste iframe
+            // Siste scene er rapport (indeks 19).
+            if (nextIndex >= sceneIds.length) { 
                 nextIndex = 0; // Loop tilbake til iframe-container (indeks 0)
             }
             showScene(nextIndex);
@@ -952,13 +900,14 @@
 
         document.getElementById('prevButton').addEventListener('click', () => {
             let prevIndex = (currentSceneIndex - 1 + sceneIds.length) % sceneIds.length;
-            // FIKS: Hvis vi er på en "GO!"-scene...
+            
+            // Hvis vi er på en "GO!"-scene, hopp tilbake til instruksjonsvideoen
             if (sceneIds[currentSceneIndex].startsWith('scene-go-')) {
                 prevIndex = (currentSceneIndex - 2 + sceneIds.length) % sceneIds.length;
             }
-            // NY FIKS: Hvis vi er på rapporten (indeks 19)
+            // Hvis vi er på rapporten (indeks 19), hopp til siste iframe (18)
             if (currentSceneIndex === 19) {
-                prevIndex = 18; // hopp til siste iframe (indeks 18)
+                prevIndex = 18; 
             }
             showScene(prevIndex);
         });
@@ -968,106 +917,110 @@
         
         // Vi lytter til en "kommando"-sti i databasen
         const kommandoRef = database.ref('sideStyring/kommando');
-        // NY: Vi definerer en sti for rapportdata
+        // NY: Stien der rapportdata skal ligge (realAge, balanceAge, osv.)
         const reportDataRef = database.ref('sideStyring/reportData');
 
-        // ENDRET: Alle indekser er oppdatert
+        // NY: Flagg for å ignorere den første "on value"-hendelsen
+        let isInitialLoad = true;
+
         kommandoRef.on('value', (snapshot) => {
             const kommando = snapshot.val();
             console.log("Mottok kommando:", kommando);
 
+            // NY: Hvis dette er første lasting, ignorer den lagrede verdien
+            if (isInitialLoad) {
+                console.log("Ignorerer første 'on value'-kall (initial state).");
+                isInitialLoad = false; // Nå vil vi lytte etter nye endringer
+                return; // Ikke gjør noe med den første verdien
+            }
+
             switch (kommando) {
-                case "showIframeHome": // NY: For å gå til hoved-iframen
-                    showScene(0); // Scene 0 (Iframe)
+                case "showIframeHome": 
+                    showScene(0); // Iframe (hjemme)
                     break;
                 case "showScreensaver":
-                    showScene(1); // Scene 1 (Tidligere 0)
+                    showScene(1); // Screensaver
                     break;
                 case "showOverview":
-                    showScene(2); // Scene 2 (Tidligere 1)
+                    showScene(2); // Overview
                     break;
                 
                 // Balanse VENSTRE-flyt
                 case "showBalanceLeft":
-                    showScene(3); // Scene 3 (Tidligere 2)
+                    showScene(3); 
                     break;
                 case "showCounter1": 
-                    showScene(4); // Scene 4 (Tidligere 3)
+                    showScene(4); 
                     break;
                 
                 // Balanse HØYRE-flyt
                 case "showBalanceRight":
-                    showScene(7); // Scene 7 (Tidligere 6)
+                    showScene(7); 
                     break;
                 case "showCounterBalRight": 
-                    showScene(8); // Scene 8 (Tidligere 7)
+                    showScene(8); 
                     break;
 
                 // Hopp-flyt
                 case "showJump":
-                    showScene(11); // Scene 11 (Tidligere 10)
+                    showScene(11); 
                     break;
                 case "showCounterJump": 
-                    showScene(12); // Scene 12 (Tidligere 11)
+                    showScene(12); 
                     break;
                 
                 // Styrke-flyt
                 case "showPull":
-                    showScene(15); // Scene 15 (Tidligere 14)
+                    showScene(15); 
                     break;
                 case "showCounterPull": 
-                    showScene(16); // Scene 16 (Tidligere 15)
+                    showScene(16); 
                     break;
                 
                 // Rapport
                 case "showReport":
-                    showScene(19); // Scene 19 (Tidligere 18)
+                    showScene(19); // Scene 19 (Final Report)
                     break;
 
-                // Direkte til iframes (nå med nye indekser)
-                case "showPwr1": showScene(6); break; // Går til iframe-container etter GO! 1
-                case "showPwrBalRight": showScene(10); break; // Går til iframe-container etter GO! BalRight
-                case "showPwr2": showScene(14); break; // Går til iframe-container etter GO! 2
-                case "showPwr3": showScene(18); break; // Går til iframe-container etter GO! 3
+                // Direkte til iframes
+                case "showPwr1": showScene(6); break; 
+                case "showPwrBalRight": showScene(10); break; 
+                case "showPwr2": showScene(14); break; 
+                case "showPwr3": showScene(18); break; 
             }
         });
 
         // ---------------
         // 5. AUTOMATISK FLYT (Counter -> GO! -> Iframe)
         
-        // ENDRET: Henter videoer fra deres nye scener (indeks + 1)
-        const videoCounter1 = document.getElementById('video-counter-1'); // Nå på scene 4
-        const videoCounterBalRight = document.getElementById('video-counter-bal-right'); // Nå på scene 8
-        const videoCounter2 = document.getElementById('video-counter-2'); // Nå på scene 12
-        const videoCounter3 = document.getElementById('video-counter-3'); // Nå på scene 16
+        const videoCounter1 = document.getElementById('video-counter-1'); 
+        const videoCounterBalRight = document.getElementById('video-counter-bal-right'); 
+        const videoCounter2 = document.getElementById('video-counter-2'); 
+        const videoCounter3 = document.getElementById('video-counter-3'); 
 
-        // ENDRET: Viser "GO!"-scener på deres nye indekser
+        // Starter GO!-scener
         if (videoCounter1) {
             videoCounter1.onended = () => {
-                console.log("Counter 1 finished");
                 showScene(5); // Vis "GO! 1" (Indeks 5)
             };
         }
         if (videoCounterBalRight) { 
             videoCounterBalRight.onended = () => {
-                console.log("Counter BalRight finished");
                 showScene(9); // Vis "GO! BalRight" (Indeks 9)
             };
         }
         if (videoCounter2) {
             videoCounter2.onended = () => {
-                console.log("Counter 2 finished");
                 showScene(13); // Vis "GO! 2" (Indeks 13)
             };
         }
         if (videoCounter3) {
             videoCounter3.onended = () => {
-                console.log("Counter 3 finished");
                 showScene(17); // Vis "GO! 3" (Indeks 17)
             };
         }
 
-        // Start på første scene (NYTT: Indeks 0 er nå iframe)
+        // Start på første scene
         showScene(0);
 
     </script>
