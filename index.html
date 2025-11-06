@@ -215,6 +215,11 @@
         .report-box p {
             transition: opacity 0.5s ease-in;
         }
+        
+        /* Egendefinert styling for QR-kode-holder */
+        .qr-border-fix table {
+            border: none !important;
+        }
     </style>
 </head>
 <body class="h-full text-white">
@@ -226,13 +231,21 @@
                 autoplay loop muted playsinline
                 class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
 
+        <!-- **NY** DISKRET KANAL-ID VISNING -->
+        <div id="channel-id-display-top" 
+             class="absolute top-4 right-4 text-xs font-mono text-emerald-400 bg-black/50 px-3 py-1 rounded-lg z-20 opacity-70">
+            Laster...
+        </div>
+
         <!-- Sentrert innholds-wrapper -->
         <div class="absolute inset-0 flex items-center justify-center z-10 p-8">
             <!-- Selve "Frosted Glass" boksen -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-xs w-full text-center">
                 
-                <!-- NYTT: Stedet hvor QR-koden genereres -->
-                <div id="dynamic-qr-code" class="w-full h-auto mx-auto rounded-2xl border-4 border-green-400 p-2 bg-white flex items-center justify-center">
+                <!-- Stedet hvor QR-koden genereres (Fikset for kantlinje) -->
+                <div id="dynamic-qr-code" 
+                     class="w-full h-auto mx-auto rounded-2xl border-4 border-green-400 flex items-center justify-center qr-border-fix"
+                     style="background-color: white; padding: 1px;">
                     <!-- QR-koden vil bli satt inn her -->
                 </div>
                 
@@ -240,9 +253,7 @@
                 <h2 class="text-3xl font-medium text-white mt-6">
                     Scan to get started
                 </h2>
-                <p id="channel-id-display" class="text-lg font-mono text-emerald-400 mt-2">
-                    Laster kanal...
-                </p>
+                <!-- FJERNET: channel-id-display herfra -->
             </div>
         </div>
     </div>
@@ -631,10 +642,13 @@
         const database = firebase.database();
         const ServerValue = firebase.database.ServerValue; // Hjelpevariabel
 
-        // Hent URL-displayet én gang
+        // Hent elementer
         const urlDisplay = document.getElementById('iframe-url-display');
-        const adminAppUrl = "https://DIN-REACT-APP.firebaseapp.com"; // **VIKTIG: ERSTATT DENNE**
-        const channelIdDisplay = document.getElementById('channel-id-display');
+        
+        // **OPPDATERT MED DIN FAKTISKE URL**
+        const adminAppUrl = "https://prototypefitnessage.web.app"; 
+        
+        const channelIdDisplayTop = document.getElementById('channel-id-display-top');
 
 
         // --- FUNKSJON FOR Å STARTE APPLIKASJONEN ETTER KANAL ER HÅNDTERT ---
@@ -1056,7 +1070,7 @@
         } else {
             // Kanal finnes! Kjør appen
             
-            channelIdDisplay.textContent = `ID: ${channelId.toUpperCase()}`; // Vis ID-en
+            channelIdDisplayTop.textContent = `ID: ${channelId.toUpperCase()}`; // Vis ID-en (øverst høyre)
 
             // 1. GENERER QR-KODEN
             const magicLink = `${adminAppUrl}?channel=${channelId}`;
@@ -1064,6 +1078,7 @@
             try {
                 // Sørg for at qrcode.js er tilgjengelig og at elementet finnes
                 if (typeof QRCode !== 'undefined' && document.getElementById("dynamic-qr-code")) {
+                    // NB: qrcode.js setter QR-koden inne i elementet. Det er der padding og bakgrunn er viktig.
                     new QRCode(document.getElementById("dynamic-qr-code"), {
                         text: magicLink,
                         width: 150,
