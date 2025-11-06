@@ -215,11 +215,6 @@
         .report-box p {
             transition: opacity 0.5s ease-in;
         }
-        
-        /* Egendefinert styling for QR-kode-holder */
-        .qr-border-fix table {
-            border: none !important;
-        }
     </style>
 </head>
 <body class="h-full text-white">
@@ -242,18 +237,22 @@
             <!-- Selve "Frosted Glass" boksen -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-xs w-full text-center">
                 
-                <!-- Stedet hvor QR-koden genereres (Fikset for kantlinje) -->
+                <!-- Stedet hvor QR-koden genereres -->
                 <div id="dynamic-qr-code" 
-                     class="w-full h-auto mx-auto rounded-2xl border-4 border-green-400 flex items-center justify-center qr-border-fix"
-                     style="background-color: white; padding: 1px;">
-                    <!-- QR-koden vil bli satt inn her -->
+                     class="w-56 h-56 mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
+                    <!-- 
+                        Endringer:
+                        - w-56 h-56: Fast, firkantet størrelse (større enn før).
+                        - border-8: Tykkere kantlinje ("sjukke").
+                        - border-green-600: Mørkere grønnfarge.
+                        - bg-white p-2: Bakgrunn og padding styres nå med Tailwind.
+                    -->
                 </div>
                 
                 <!-- Tekst under QR-koden -->
                 <h2 class="text-3xl font-medium text-white mt-6">
                     Scan to get started
                 </h2>
-                <!-- FJERNET: channel-id-display herfra -->
             </div>
         </div>
     </div>
@@ -1099,13 +1098,19 @@
             const magicLink = `${adminAppUrl}?channel=${channelId}`;
 
             try {
-                // Sørg for at qrcode.js er tilgjengelig og at elementet finnes
-                if (typeof QRCode !== 'undefined' && document.getElementById("dynamic-qr-code")) {
-                    // NB: qrcode.js setter QR-koden inne i elementet. Det er der padding og bakgrunn er viktig.
-                    new QRCode(document.getElementById("dynamic-qr-code"), {
+                const qrContainer = document.getElementById("dynamic-qr-code");
+                if (typeof QRCode !== 'undefined' && qrContainer) {
+                    
+                    // Magien skjer her: Vi måler den indre bredden av containeren (etter padding).
+                    // Dette sikrer at QR-koden fyller plassen perfekt.
+                    const qrSize = qrContainer.clientWidth; 
+                    
+                    console.log(`Genererer QR-kode med dynamisk størrelse: ${qrSize}px`);
+
+                    new QRCode(qrContainer, {
                         text: magicLink,
-                        width: 150,
-                        height: 150,
+                        width: qrSize,      // Bruker målt størrelse
+                        height: qrSize,     // Bruker målt størrelse
                         colorDark: "#000000",
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
