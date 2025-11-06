@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Styrt Side</title>
-    <!-- Importerer Tailwind CSS -->
+    <!-- Importerer Tailwind CSS for rask og pen styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Importerer "Inter" fonten -->
+    <!-- Importerer QR-kode biblioteket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Importerer "Inter" fonten, standard for moderne UI -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- NYTT: Importerer QR-kode biblioteket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
     <style>
         /* === Overganger === */
         .scene {
@@ -45,6 +45,7 @@
             height: 100%;
             object-fit: cover; /* Dekker hele flaten, kan beskjære kantene */
         }
+        /* Ny klasse for å 'kutte' toppen av videoen */
         .video-crop-top {
             object-position: bottom; /* Kutter toppen */
         }
@@ -214,56 +215,38 @@
         .report-box p {
             transition: opacity 0.5s ease-in;
         }
-
-        /* NYTT: Styling for QR-kode holderen */
-        #dynamic-qr-code {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 256px; /* Sørger for at den har plass før koden lastes */
-        }
-        #dynamic-qr-code img {
-            border-radius: 0.5rem; /* Avrundede kanter på selve QR-bildet */
-        }
-
     </style>
 </head>
 <body class="h-full text-white">
 
-    <!-- =========== SCENE 0: SCREENSAVER (OPPDATERT MED DYNAMISK QR) =========== -->
+    <!-- =========== SCENE 0: SCREENSAVER (Default) =========== -->
     <div id="scene-0" class="scene">
         <!-- Video (Nå som bakgrunn) -->
         <video src="https://storage.googleapis.com/intro_alphatek/videoer/Tests%20Presentation.mp4" 
-               autoplay loop muted playsinline
-               class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
+                autoplay loop muted playsinline
+                class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
 
         <!-- Sentrert innholds-wrapper -->
         <div class="absolute inset-0 flex items-center justify-center z-10 p-8">
             <!-- Selve "Frosted Glass" boksen -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-xs w-full text-center">
                 
-                <!-- NYTT: Dynamisk QR-Kode Holder -->
-                <!-- Den statiske <img>-taggen er erstattet med denne <div>-en -->
-                <div id="dynamic-qr-code" class="w-full h-auto mx-auto rounded-2xl border-4 border-green-400 p-4 bg-white">
-                    <!-- QR-koden genereres av JavaScript her -->
-                    <span class="text-gray-500">Laster QR-kode...</span>
+                <!-- NYTT: Stedet hvor QR-koden genereres -->
+                <div id="dynamic-qr-code" class="w-full h-auto mx-auto rounded-2xl border-4 border-green-400 p-2 bg-white flex items-center justify-center">
+                    <!-- QR-koden vil bli satt inn her -->
                 </div>
                 
                 <!-- Tekst under QR-koden -->
                 <h2 class="text-3xl font-medium text-white mt-6">
                     Scan to get started
                 </h2>
-                
-                <!-- NYTT: Viser kanal-ID-en for manuell inntasting -->
-                <p class="text-white/70 mt-2 text-sm">
-                    Kanal: <strong id="channel-id-display">Laster...</strong>
+                <p id="channel-id-display" class="text-lg font-mono text-emerald-400 mt-2">
+                    Laster kanal...
                 </p>
-            
             </div>
         </div>
     </div>
-    <!-- SLUTT PÅ OPPDATERT SEKSJON -->
-
+    
     <!-- =========== SCENE 1: FITNESS AGE OVERSIKT =========== -->
     <div id="scene-1" class="scene">
         <!-- Hele scenen er nå en scrollbar kolonne -->
@@ -273,8 +256,8 @@
             <div class="h-[50vh] relative overflow-hidden flex-shrink-0">
                 <!-- Bakgrunnsvideo -->
                 <video id="scene-1-video" src="https://storage.googleapis.com/intro_alphatek/videoer/Age%20Test%202%20-%20NO%20TEXT%20ON%20-%20Alphatatek%20-%204k%20.mp4" 
-                       autoplay loop muted playsinline 
-                       class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
+                        autoplay loop muted playsinline 
+                        class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
                 
                 <!-- Fade fra bunnen av videoen -->
                 <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
@@ -312,21 +295,17 @@
             </div>
 
             <!-- Bunn-seksjon (Testliste) -->
-            <!-- ENDRET: Lagt til relative og overflow-hidden for aurora-effekt -->
             <div class="bg-black p-6 flex-grow relative overflow-hidden">
                 
                 <!-- NY: Aurora-bakgrunnseffekt (Blå, Grønn, Lilla) -->
                 <div class="aurora-blur absolute inset-0 overflow-hidden z-0">
-                    <!-- Redusert opacity litt for å ikke være forstyrrende -->
                     <div class="aurora-shape-1" style="opacity: 0.2;"></div>
                     <div class="aurora-shape-2" style="opacity: 0.15;"></div>
                     <div class="aurora-shape-3"></div>
                 </div>
 
-                <!-- ENDRET: Lagt til relative z-10 for å plassere innhold over aurora -->
                 <h2 class="text-3xl font-bold mb-5 px-2 relative z-10">Your Tests</h2>
                 
-                <!-- ENDRET: Lagt til relative z-10 -->
                 <div class="space-y-4 max-w-4xl mx-auto relative z-10"> 
                     
                     <!-- Test 1: Balance (NYTT HYBRID-DESIGN) -->
@@ -407,12 +386,11 @@
         </div>
     </div>
 
-    <!-- ... (Resten av Scene 2 til 16 er identiske) ... -->
     <!-- =========== BALANSE VENSTRE FLYT =========== -->
     <!-- SCENE 2: Video "Balance left" -->
     <div id="scene-2" class="scene">
         <video id="video-bal-left" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
+                autoplay loop muted playsinline class="video-crop-top"></video>
         <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -432,7 +410,7 @@
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-1" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 4: GO! 1 (Balanse Venstre) -->
@@ -444,7 +422,7 @@
     <!-- SCENE 6: Video "Balance Right" -->
     <div id="scene-6" class="scene">
         <video id="video-bal-right" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" 
-               autoplay loop muted playsinline class="video-crop-top video-mirrored"></video>
+                autoplay loop muted playsinline class="video-crop-top video-mirrored"></video>
         <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -464,7 +442,7 @@
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-bal-right" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 8: GO! 1_RIGHT (Balanse Høyre) -->
@@ -477,7 +455,7 @@
     <!-- SCENE 10: Video "Jump" -->
     <div id="scene-10" class="scene">
         <video id="video-jump" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Jump.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
+                autoplay loop muted playsinline class="video-crop-top"></video>
         <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -497,7 +475,7 @@
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-2" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 12: GO! 2 (Jump) -->
@@ -509,7 +487,7 @@
     <!-- SCENE 14: Video "Pull" -->
     <div id="scene-14" class="scene">
         <video id="video-pull" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Pull.mp4" 
-               autoplay loop muted playsinline class="video-crop-top"></video>
+                autoplay loop muted playsinline class="video-crop-top"></video>
         <!-- Posisjonering til pt-[30vh] for å flytte boksen opp -->
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -529,7 +507,7 @@
             <h2>Test starts in...</h2>
         </div>
         <video id="video-counter-3" src="https://storage.googleapis.com/intro_alphatek/FitnessAgeBilder/5%20second%20beep%20countdown%20intro%20Short.mp4" 
-               autoplay muted playsinline></video>
+                autoplay muted playsinline></video>
     </div>
 
     <!-- SCENE 16: GO! 3 (Pull) -->
@@ -635,115 +613,48 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <script>
-        // --- 0. KANALSTYRING (NYTT!) ---
+        // ---------------
+        // 1. FIREBASE KONFIGURASJON
+        const firebaseConfig = {
+            // MERK: Bruker din eksisterende konfigurasjon
+            apiKey: "AIzaSyDFu-aEtJ17AxIk3B5AjB-BSZ1u0-hY9y4",
+            authDomain: "prototypefitnessage.firebaseapp.com",
+            projectId: "prototypefitnessage",
+            storageBucket: "prototypefitnessage.firebasestorage.app",
+            messagingSenderId: "203645458759",
+            appId: "1:203645458759:web:6c19ba323bbbafdd745462",
+            databaseURL: "https://prototypefitnessage-default-rtdb.europe-west1.firebasedatabase.app"
+        };
         
-        /**
-         * Genererer en kort, tilfeldig ID (f.eks. "8wz4k2")
-         */
-        function generateChannelId() {
-            return Math.random().toString(36).substring(2, 8);
-        }
+        // Initialiser Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const ServerValue = firebase.database.ServerValue; // Hjelpevariabel
 
-        const queryParams = new URLSearchParams(window.location.search);
-        let channelId = queryParams.get('channel');
-
-        if (!channelId) {
-            // Ingen kanal? Lag en og last siden på nytt
-            channelId = generateChannelId();
-            // Tvinger siden til å laste på nytt med den nye kanal-ID-en
-            window.location.search = `?channel=${channelId}`;
-        } else {
-            // VI HAR EN KANAL! NÅ KAN APPEN STARTE.
-            // All logikk må kjøre ETTER at vi har en channelId.
-            runApp(channelId);
-        }
+        // Hent URL-displayet én gang
+        const urlDisplay = document.getElementById('iframe-url-display');
+        const adminAppUrl = "https://DIN-REACT-APP.firebaseapp.com"; // **VIKTIG: ERSTATT DENNE**
+        const channelIdDisplay = document.getElementById('channel-id-display');
 
 
-        /**
-         * Hovedfunksjon som starter hele applikasjonen.
-         * Kjører kun når vi har en gyldig channelId.
-         * @param {string} channelId - Den unike ID-en for denne økten.
-         */
+        // --- FUNKSJON FOR Å STARTE APPLIKASJONEN ETTER KANAL ER HÅNDTERT ---
         function runApp(channelId) {
-            console.log(`Kobler til kanal: ${channelId}`);
-
-            // ---------------
-            // 1. FIREBASE KONFIGURASJON
-            const firebaseConfig = {
-                apiKey: "AIzaSyDFu-aEtJ17AxIk3B5AjB-BSZ1u0-hY9y4",
-                authDomain: "prototypefitnessage.firebaseapp.com",
-                projectId: "prototypefitnessage",
-                storageBucket: "prototypefitnessage.firebasestorage.app",
-                messagingSenderId: "203645458759",
-                appId: "1:203645458759:web:6c19ba323bbbafdd745462",
-                databaseURL: "https://prototypefitnessage-default-rtdb.europe-west1.firebasedatabase.app"
-            };
+            console.log(`Running app with channel: ${channelId}`);
             
-            // Initialiser Firebase
-            firebase.initializeApp(firebaseConfig);
-            const database = firebase.database();
-
-            // ---------------
-            // 2. NYE, KANAL-BASERTE REFERANSER
-            
-            // Hovedreferanse til denne spesifikke kanalen
+            // ---------------------------------------------
+            // A. KANAL-SPESIFIKKE FIREBASE REFERANSER
+            // ---------------------------------------------
             const channelRef = database.ref(`channels/${channelId}`);
+            const kommandoRef = channelRef.child('kommando'); // Lytter til kommando-objektet
+            const reportDataRef = channelRef.child('reportData'); // Henter rapportdata
 
-            // Referanse til kommandoer for denne kanalen
-            const kommandoRef = channelRef.child('kommando');
-            
-            // Referanse til rapportdata for denne kanalen
-            const reportDataRef = channelRef.child('reportData');
-
-            // ---------------
-            // 3. OPPDATER "LAST USED" OG STATUS (for opprydding)
-            
+            // Sett opp keep-alive/status ved oppstart
             channelRef.update({
-                lastUsed: firebase.database.ServerValue.TIMESTAMP, // Sett "sist aktiv" til NÅ
-                status: 'connected', // Vis at en klient er koblet til
-                createdAt: firebase.database.ServerValue.TIMESTAMP // Nyttig for å se når den ble laget
+                status: 'connected',
+                lastUsed: ServerValue.TIMESTAMP
             });
 
-            // "Siste vilje": Hvis denne nettleserfanen lukkes/krasjer, sett status til disconnected.
-            channelRef.child('status').onDisconnect().set('disconnected');
-
-            // ---------------
-            // 4. GENERER QR-KODE (for scene-0)
-            
-            // VIKTIG: Bytt ut dette med den faktiske URL-en til din *deployede* React-app
-            const adminAppUrl = "https://prototypefitnessage.web.app"; 
-            
-            const magicLink = `${adminAppUrl}?channel=${channelId}`;
-
-            const qrHolder = document.getElementById('dynamic-qr-code');
-            const channelDisplay = document.getElementById('channel-id-display');
-
-            if (qrHolder && channelDisplay) {
-                qrHolder.innerHTML = ''; // Tøm "Laster..."-teksten
-                
-                // Generer den nye QR-koden
-                new QRCode(qrHolder, {
-                    text: magicLink,
-                    width: 256, // Passer bra i boksen (originalt 256x256)
-                    height: 256,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-
-                // Oppdater tekst-displayet
-                channelDisplay.textContent = channelId;
-            } else {
-                console.error("Kunne ikke finne QR-kode-elementene i 'scene-0'.");
-            }
-
-
-            // ---------------
-            // 5. SCENE-STYRINGS LOGIKK (Eksisterende kode)
-            
-            const urlDisplay = document.getElementById('iframe-url-display');
-
-            // Egendefinert Video Loop for Scene 1
+            // Egendefinert Video Loop for Scene 1 (For å unngå hard loop-klipp)
             const overviewVideo = document.getElementById('scene-1-video');
             if (overviewVideo) {
                 overviewVideo.addEventListener('timeupdate', function() {
@@ -754,27 +665,26 @@
                 });
             }
 
-            // Rute-kartet
+            // ---------------------------------------------
+            // B. SCENE-STYRINGS LOGIKK (uendret)
+            // ---------------------------------------------
+            
             const sceneIds = [
                 "scene-iframe-container", // 0: Iframe (Base URL)
                 "scene-0",  // 1: Screensaver
                 "scene-1",  // 2: Overview
-                // Balanse Venstre Flyt
                 "scene-2",  // 3: Balance Left Video
                 "scene-countdown-1", // 4: Counter 1
                 "scene-go-1",        // 5: GO! 1
                 "scene-iframe-container",  // 6: Iframe (Balance Left Result)
-                // Balanse Høyre Flyt
                 "scene-6",  // 7: Balance Right Video
                 "scene-countdown-bal-right", // 8: Counter BalRight
                 "scene-go-bal-right",        // 9: GO! BalRight
                 "scene-iframe-container", // 10: Iframe (Balance Right Result)
-                // Hopp Flyt
                 "scene-10", // 11: Jump Video
                 "scene-countdown-2", // 12: Counter 2
                 "scene-go-2",        // 13: GO! 2
                 "scene-iframe-container", // 14: Iframe (Jump Result)
-                // Styrke Flyt
                 "scene-14", // 15: Pull Video
                 "scene-countdown-3", // 16: Counter 3
                 "scene-go-3",        // 17: GO! 3
@@ -785,7 +695,7 @@
             let currentSceneIndex = 0;
             let autoAdvanceTimer = null; 
             let reportAnimationTimers = []; 
-       
+        
             /**
              * Viser en spesifikk scene basert på indeks og stopper alle andre videoer.
              */
@@ -806,7 +716,6 @@
                     autoAdvanceTimer = null;
                 }
                 
-                // Riktig opprydding av rapport-animasjonstimere
                 if (reportAnimationTimers.length > 0) {
                     console.log(`Clearing ${reportAnimationTimers.length} report animation timers.`);
                     reportAnimationTimers.forEach(clearTimeout);
@@ -823,7 +732,7 @@
                         // Start/spol video
                         if (video) {
                             if (video.id !== 'scene-1-video') {
-                                video.currentTime = 0; 
+                                video.currentTime = 0;  
                             }
                             video.play().catch(e => console.warn("Autoplay blokkert:", e));
                         }
@@ -864,7 +773,7 @@
                     urlDisplay.textContent = newUrl;
                 }
                 
-                // Oppdaterer URL-displayet HVER GANG vi viser iframe-scenen
+                // VIKTIG: Oppdaterer URL-displayet HVER GANG vi viser iframe-scenen
                 if (sceneIdToShow === 'scene-iframe-container') {
                     urlDisplay.textContent = iframe.src;
                 }
@@ -878,19 +787,17 @@
                     }, 1500); 
                 }
 
-                // Håndter animasjonsflyt for SCENE 18 (Rapport)
+                // NY: Håndter animasjonsflyt for SCENE 18 (Rapport) - Indeks 19
                 if (sceneIdToShow === 'scene-18') { 
                     
                     // Hent data fra Firebase FØR vi starter animasjonen
-                    // BRUKER NÅ DEN NYE `reportDataRef`
                     reportDataRef.once('value', (snapshot) => {
                         const data = snapshot.val() || {}; // Hent data eller bruk tomt objekt
                         
-                        console.log("Report Data from channel:", data);
+                        console.log("Report Data:", data);
 
                         // --- Oppdater DOM med Firebase-data (med fallbacks) ---
                         
-                        // Hjelpefunksjon for å sette tekst og farge
                         function updateAgeChange(boxId, ageKey, changeKey, defaultAge, defaultChange, defaultText) {
                             const ageEl = document.querySelector(`#${boxId} .text-5xl`);
                             const changeParentEl = document.querySelector(`#${boxId} .text-2xl`);
@@ -904,7 +811,7 @@
                             changeSupEl.textContent = `(${changeVal > 0 ? '+' : ''}${changeVal})`;
                             textEl.textContent = data[`reportText${boxId.slice(-1)}`] || defaultText;
                             
-                            // Fargelogikk
+                            // Fargelogikk: Negativ endring (lavere alder) = Grønn. Positiv endring (høyere alder) = Rød.
                             changeParentEl.classList.remove('text-green-400', 'text-red-400');
                             changeParentEl.classList.add(changeVal > 0 ? 'text-red-400' : 'text-green-400');
                         }
@@ -934,7 +841,7 @@
                         const text3 = document.getElementById('report-text-3'); 
                         const finalMessage = document.getElementById('report-final-message');
                         
-                        // 2. Reset (skjul alt umiddelbart)
+                        // 2. Reset (skjul alt umiddelbart for å starte animasjonen rent)
                         [box1, box2, box3].forEach(box => {
                             box.classList.add('opacity-0', 'translate-y-5');
                         });
@@ -965,7 +872,7 @@
                             box3.classList.remove('opacity-0', 'translate-y-5'); 
                         }, 1700)); 
 
-                        // Setningene i boksene
+                        // Setningene i boksene fader inn ETTER boksene
                         timers.push(setTimeout(() => {
                             text1.classList.remove('opacity-0');
                         }, 2000)); 
@@ -978,7 +885,7 @@
                             text3.classList.remove('opacity-0');
                         }, 2600)); 
                         
-                        // "Smash"-effekt
+                        // "Smash"-effekt (vent 2s ETTER siste tekst)
                         timers.push(setTimeout(() => {
                             realAge.style.transform = 'scale(0.7)'; 
                             realAge.style.opacity = '0';
@@ -988,34 +895,35 @@
                             newAge.classList.add('animate-pulse-green-report'); 
                         }, 4600)); 
 
-                        // "Settle"-effekt
+                        // "Settle"-effekt (700ms etter smash, matcher CSS transition)
                         timers.push(setTimeout(() => {
                             newAge.style.transform = 'scale(1)'; 
                         }, 5300)); 
 
-                        // Vis den siste meldingen
+                        // Vis den siste meldingen (800ms etter "settle")
                         timers.push(setTimeout(() => {
                             finalMessage.classList.remove('opacity-0');
                         }, 6100)); 
 
-                        // Lagre ALLE timer-ID-ene
+                        // VIKTIG FIKS: Lagre ALLE timer-ID-ene i arrayet for opprydding
                         reportAnimationTimers = timers; 
 
                     }); // <-- Avslutter reportDataRef.once()
                 }
             }
 
-            // ---------------
-            // 6. FIREBASE-LYTTER (Den "ekte" styringen)
-            
-            // (Ref-definisjoner er nå flyttet til toppen av runApp)
 
+            // ---------------------------------------------
+            // C. FIREBASE-LYTTER (Den "ekte" styringen)
+            // ---------------------------------------------
+            
             let isInitialLoad = true;
 
             // Lytter nå til den KANAL-SPESIFIKKE kommando-stien
             kommandoRef.on('value', (snapshot) => {
-                const kommando = snapshot.val();
-                console.log(`Mottok kommando på kanal ${channelId}:`, kommando);
+                // OPPDATERING: Les kommando-objektet
+                const kommandoData = snapshot.val();
+                console.log(`Mottok kommando-objekt på kanal ${channelId}:`, kommandoData);
 
                 // Ignorerer den første "on value"-hendelsen
                 if (isInitialLoad) {
@@ -1024,6 +932,13 @@
                     return; 
                 }
 
+                // NYTT: Sjekk om dataen er gyldig og hent selve kommandoen
+                if (!kommandoData || !kommandoData.cmd) {
+                    console.log("Tom eller ugyldig kommando mottatt. Ignorerer.");
+                    return; // Ikke gjør noe hvis dataen er tom eller rar
+                }
+                const kommando = kommandoData.cmd;
+                
                 // Kommando-logikken er den samme som før
                 switch (kommando) {
                     case "showIframeHome": 
@@ -1081,8 +996,10 @@
                 }
             });
 
-            // ---------------
-            // 7. AUTOMATISK FLYT (Counter -> GO! -> Iframe)
+
+            // ---------------------------------------------
+            // D. AUTOMATISK FLYT (Counter -> GO! -> Iframe) - Uendret
+            // ---------------------------------------------
             
             const videoCounter1 = document.getElementById('video-counter-1'); 
             const videoCounterBalRight = document.getElementById('video-counter-bal-right'); 
@@ -1111,13 +1028,65 @@
                 };
             }
 
-            // ---------------
-            // 8. START AV APP
-            
-            // Start på første scene (Screensaver)
+            // Start på Screensaver etter initialisering
             showScene(1);
 
-        } // <-- Slutt på runApp(channelId)
+        } // <-- SLUTT PÅ runApp FUNKSJONEN
+
+
+        // ---------------------------------------------
+        // 2. INITIALISERING OG KANAL-HÅNDTERING
+        // ---------------------------------------------
+
+        // Funksjon for å lage en kort, tilfeldig ID
+        function generateChannelId() {
+            return Math.random().toString(36).substring(2, 8);
+        }
+
+        const queryParams = new URLSearchParams(window.location.search);
+        let channelId = queryParams.get('channel');
+
+        if (!channelId) {
+            // Ingen kanal funnet i URL. Lag en ny!
+            channelId = generateChannelId();
+            
+            // Redirect til ny URL for å "låse" ID-en
+            window.location.search = `?channel=${channelId}`;
+            
+        } else {
+            // Kanal finnes! Kjør appen
+            
+            channelIdDisplay.textContent = `ID: ${channelId.toUpperCase()}`; // Vis ID-en
+
+            // 1. GENERER QR-KODEN
+            const magicLink = `${adminAppUrl}?channel=${channelId}`;
+
+            try {
+                // Sørg for at qrcode.js er tilgjengelig og at elementet finnes
+                if (typeof QRCode !== 'undefined' && document.getElementById("dynamic-qr-code")) {
+                    new QRCode(document.getElementById("dynamic-qr-code"), {
+                        text: magicLink,
+                        width: 150,
+                        height: 150,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } else {
+                    document.getElementById("dynamic-qr-code").innerHTML = "<p class='text-red-500'>QR-kode feil.</p>";
+                    console.error("QR-kode generering feilet: qrcode.js ikke lastet eller element mangler.");
+                }
+            } catch (error) {
+                document.getElementById("dynamic-qr-code").innerHTML = `<p class='text-red-500 text-xs'>Feil QR: ${channelId.toUpperCase()}</p>`;
+                console.error("QR-kode krasjet, fortsetter app-kjøring:", error);
+            }
+            
+            // 2. Kjører selve applogikken
+            window.onload = () => {
+                runApp(channelId);
+            };
+        }
+
     </script>
 </body>
 </html>
