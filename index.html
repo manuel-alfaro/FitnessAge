@@ -315,9 +315,9 @@
                 mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             }
             .report-carousel-track {
-                width: calc(250px * 8); /* (card width + padding) * count */
+                width: calc(250px * 10); /* (card width + padding) * 10 items (var 8) */
                 padding: 0;
-                animation: scroll-reports 40s linear infinite;
+                animation: scroll-reports 50s linear infinite; /* 40s -> 50s for 10 items */
             }
             .report-carousel-track:hover {
                 animation-play-state: paused;
@@ -459,7 +459,7 @@
         <!-- 
         ===========================================
         NYTT INNHOLD: RAPPORT-KARUSELL (Flyttet inn i scene-0)
-        ===========================================
+        <!-- ===========================================
         --><section id="reports" class="reports-section">
             <div class="container">
                 <!-- <div class="divider"></div> (Fjernet etter ønske) --><!-- <h2 class="section-title">Equip your medical team with reports to track rehab, return to play, and performance</h2> (Fjernet etter ønske) --></div>
@@ -469,10 +469,14 @@
                     <div class="report-card" data-report-id="performance"><img src="https://storage.googleapis.com/intro_alphatek/reports/Handball.png" alt="Performance Report"><h4 class="report-title text-accent">Performance Report</h4><p class="report-description">For any athlete in any sport.</p></div>
                     <div class="report-card" data-report-id="shoulder-screening"><img src="https://storage.googleapis.com/intro_alphatek/reports/shoulder.png" alt="Shoulder Screening Report"><h4 class="report-title text-accent">Shoulder Screening</h4><p class="report-description">Assess readiness for overhead loading.</p></div>
                     <div class="report-card" data-report-id="rehab-initial"><img src="https://storage.googleapis.com/intro_alphatek/reports/PT%20basic.png" alt="Phase 1 & 2 Rehab Report"><h4 class="report-title text-accent">Phase 1 & 2 Rehab</h4><p class="report-description">Gentle, early-stage progress tracking.</p></div>
+                    <!-- NYTT KORT LAGT TIL --><div class="report-card" data-report-id="senior-wellness"><img src="https://storage.googleapis.com/intro_alphatek/reports/senior%20raport.png" alt="Senior Fitness Test"><h4 class="report-title text-accent">Senior Fitness Test</h4><p class="report-description">For the active senior.</p></div>
+                    
+                    <!-- Duplicates for infinite scroll -->
                     <div class="report-card" data-report-id="return-to-sport"><img src="https://storage.googleapis.com/intro_alphatek/reports/Return%20to%20play.png" alt="Return to Sport Report"><h4 class="report-title text-accent">Return to Sport</h4><p class="report-description">Comprehensive readiness evaluation.</p></div>
                     <div class="report-card" data-report-id="performance"><img src="https://storage.googleapis.com/intro_alphatek/reports/Handball.png" alt="Performance Report"><h4 class="report-title text-accent">Performance Report</h4><p class="report-description">For any athlete in any sport.</p></div>
                     <div class="report-card" data-report-id="shoulder-screening"><img src="https://storage.googleapis.com/intro_alphatek/reports/shoulder.png" alt="Shoulder Screening Report"><h4 class="report-title text-accent">Shoulder Screening</h4><p class="report-description">Assess readiness for overhead loading.</p></div>
                     <div class="report-card" data-report-id="rehab-initial"><img src="https://storage.googleapis.com/intro_alphatek/reports/PT%20basic.png" alt="Phase 1 & 2 Rehab Report"><h4 class="report-title text-accent">Phase 1 & 2 Rehab</h4><p class="report-description">Gentle, early-stage progress tracking.</p></div>
+                    <!-- NYTT KORT LAGT TIL (DUPLIKAT) --><div class="report-card" data-report-id="senior-wellness"><img src="https://storage.googleapis.com/intro_alphatek/reports/senior%20raport.png" alt="Senior Fitness Test"><h4 class="report-title text-accent">Senior Fitness Test</h4><p class="report-description">For the active senior.</p></div>
                 </div>
             </div>
         </section>
@@ -976,6 +980,12 @@
                 title: 'Phase 1 & 2 Rehab',
                 explanation: 'This protocol is designed for the early stages of rehabilitation. It utilizes gentle, low-load assessments like isometric strength and static balance tests. This allows therapists to safely monitor neuromuscular function and track progress from the very beginning of the recovery process without compromising healing tissue, providing a clear baseline for future comparison.',
                 tests: ['Isometric Strength Test (e.g., IMTP)', 'Single-Leg Balance (Eyes open/closed)', 'Weight-Bearing Symmetry']
+            },
+            /* NYTT OBJEKT LAGT TIL */
+            'senior-wellness': {
+                title: 'Senior Fitness Test',
+                explanation: 'Intended for people over 60, its main focus is to test key characteristics to assess fall risk. This test measures balance, strength, and function, three crucial abilities to stay safe and avoid falls. Training these abilities has been shown to help the elderly maintain their physical independence. Your result is compared with others aged 65 to 83.',
+                tests: ['4 Balance Tests (Feet together, One foot, etc.)', '3 Function Tests (Jump, Squat Depth/Speed)', '4 Strength Tests (Pushups, IMTP, etc.)']
             }
         };
 
