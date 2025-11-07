@@ -15,6 +15,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for karusell-ikoner (selv om de ikke er i bruk, er det i originalkoden) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Roboto-font fra karusellen -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+
     <style>
         /* === Overganger === */
         .scene {
@@ -215,6 +221,217 @@
         .report-box p {
             transition: opacity 0.5s ease-in;
         }
+
+        /* === KARUSELL CSS START === */
+        :root {
+            --color-brand-accent: rgb(47, 124, 83);
+            --color-brand-white: #FFFFFF;
+            --color-grey-lightest: #D9D9D9;
+            --color-grey-light: #A6A6A6;
+            --font-primary: 'Roboto', sans-serif;
+            --font-weight-normal: 400;
+        }
+
+        /* Overstyrer body-font for karusell-elementer, men lar Inter være default */
+        .reports-section, .report-modal-overlay {
+            font-family: var(--font-primary);
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .reports-section h2, .reports-section h3, .reports-section h4, .reports-section p {
+            margin: 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-accent {
+            color: var(--color-brand-accent);
+        }
+        
+        .reports-section {
+            padding: 60px 0;
+            background-color: transparent; /* Endret fra #000 */
+            position: absolute; /* Plassert i bunnen av scenen */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10; /* Samme nivå som QR-boksen */
+            /* margin-top: 100vh; (Fjernet) */
+        }
+        
+        .divider {
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-brand-accent);
+            margin: 0 auto 2em;
+            border-radius: 2px;
+        }
+        
+        .reports-section h2 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            font-size: 30px;
+            color: var(--color-brand-white);
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        /* Стили карусели */
+        .report-carousel-container {
+            width: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .report-carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .report-carousel-track {
+            display: flex;
+            width: fit-content;
+            padding: 0 20px;
+        }
+
+        .report-card {
+            width: 60vw;
+            max-width: 220px;
+            flex-shrink: 0;
+            padding: 0 10px;
+            text-align: center;
+            cursor: pointer;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .report-carousel-container {
+                max-width: 1000px;
+                margin: 0 auto;
+                overflow: hidden;
+                -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+                mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            }
+            .report-carousel-track {
+                width: calc(250px * 8); /* (card width + padding) * count */
+                padding: 0;
+                animation: scroll-reports 40s linear infinite;
+            }
+            .report-carousel-track:hover {
+                animation-play-state: paused;
+            }
+            @keyframes scroll-reports {
+                from { transform: translateX(0); }
+                to { transform: translateX(-50%); }
+            }
+            .report-card {
+                width: 220px;
+                padding: 0 15px;
+            }
+        }
+        
+        .report-card img {
+            width: 100%;
+            height: 283px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            margin-bottom: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .report-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .report-title {
+            font-size: 1rem;
+            margin-bottom: 0.4em;
+            font-weight: var(--font-weight-normal);
+            color: var(--color-brand-white);
+        }
+
+        .report-description {
+            font-size: 0.85rem;
+            color: var(--color-grey-light);
+        }
+        
+        /* Стили модального окна */
+        .report-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .report-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+
+        .report-modal-content {
+            background-color: rgba(26, 26, 26, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px; border-radius: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px;
+            width: 90%; max-width: 900px; max-height: 90vh;
+            overflow-y: auto; position: relative;
+            transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .report-modal-overlay.is-visible .report-modal-content { transform: scale(1); }
+        
+        @media (max-width: 768px) {
+            .report-modal-content {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+             .report-modal-text-container h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .report-modal-image-container img { width: 100%; border-radius: 8px; }
+        .report-modal-text-container h3 { font-size: 1.8rem; color: var(--color-brand-accent); }
+        .report-modal-text-container h4 {
+            margin-top: 1.5em; margin-bottom: 0.5em; font-size: 1.2rem;
+            color: var(--color-brand-white); border-bottom: 1px solid var(--color-brand-accent);
+            padding-bottom: 0.3em;
+        }
+        .report-modal-text-container p { font-size: 1rem; line-height: 1.7; color: var(--color-grey-lightest); }
+        .report-modal-text-container ul { list-style: none; padding: 0; margin: 0; }
+        .report-modal-text-container ul li {
+            background-color: rgba(255,255,255,0.05); padding: 8px 12px;
+            border-radius: 4px; margin-bottom: 8px; font-size: 0.9rem;
+        }
+
+        .close-report-modal {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            border: none; 
+            color: #FFFFFF; 
+            font-size: 1.5rem; 
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer; 
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+        .close-report-modal:hover { 
+            transform: scale(1.1);
+        }
+        /* === KARUSELL CSS SLUTT === */
     </style>
 </head>
 <body class="h-full text-white">
@@ -232,8 +449,8 @@
             Laster...
         </div>
 
-        <!-- Sentrert innholds-wrapper -->
-        <div class="absolute inset-0 flex items-center justify-center z-10 p-8">
+        <!-- ENDRING: Container flyttet opp med pt-[20vh] og items-start -->
+        <div class="absolute inset-0 flex items-start justify-center z-10 p-8 pt-[20vh]">
             <!-- Selve "Frosted Glass" boksen -->
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-xs w-full text-center">
                 
@@ -248,6 +465,51 @@
                 </h2>
             </div>
         </div>
+
+        <!-- 
+        ===========================================
+        NYTT INNHOLD: RAPPORT-KARUSELL (Flyttet inn i scene-0)
+        ===========================================
+        -->
+        <section id="reports" class="reports-section">
+            <div class="container">
+                <!-- <div class="divider"></div> (Fjernet etter ønske) -->
+                <h2 class="section-title">Equip your medical team with reports to track rehab, return to play, and performance</h2>
+            </div>
+            <div class="report-carousel-container">
+                <div class="report-carousel-track">
+                    <div class="report-card" data-report-id="return-to-sport"><img src="https://storage.googleapis.com/intro_alphatek/reports/Return%20to%20play.png" alt="Return to Sport Report"><h4 class="report-title text-accent">Return to Sport</h4><p class="report-description">Comprehensive readiness evaluation.</p></div>
+                    <div class="report-card" data-report-id="performance"><img src="https://storage.googleapis.com/intro_alphatek/reports/Handball.png" alt="Performance Report"><h4 class="report-title text-accent">Performance Report</h4><p class="report-description">For any athlete in any sport.</p></div>
+                    <div class="report-card" data-report-id="shoulder-screening"><img src="https://storage.googleapis.com/intro_alphatek/reports/shoulder.png" alt="Shoulder Screening Report"><h4 class="report-title text-accent">Shoulder Screening</h4><p class="report-description">Assess readiness for overhead loading.</p></div>
+                    <div class="report-card" data-report-id="rehab-initial"><img src="https://storage.googleapis.com/intro_alphatek/reports/PT%20basic.png" alt="Phase 1 & 2 Rehab Report"><h4 class="report-title text-accent">Phase 1 & 2 Rehab</h4><p class="report-description">Gentle, early-stage progress tracking.</p></div>
+                    <div class="report-card" data-report-id="return-to-sport"><img src="https://storage.googleapis.com/intro_alphatek/reports/Return%20to%20play.png" alt="Return to Sport Report"><h4 class="report-title text-accent">Return to Sport</h4><p class="report-description">Comprehensive readiness evaluation.</p></div>
+                    <div class="report-card" data-report-id="performance"><img src="https://storage.googleapis.com/intro_alphatek/reports/Handball.png" alt="Performance Report"><h4 class="report-title text-accent">Performance Report</h4><p class="report-description">For any athlete in any sport.</p></div>
+                    <div class="report-card" data-report-id="shoulder-screening"><img src="https://storage.googleapis.com/intro_alphatek/reports/shoulder.png" alt="Shoulder Screening Report"><h4 class="report-title text-accent">Shoulder Screening</h4><p class="report-description">Assess readiness for overhead loading.</p></div>
+                    <div class="report-card" data-report-id="rehab-initial"><img src="https://storage.googleapis.com/intro_alphatek/reports/PT%20basic.png" alt="Phase 1 & 2 Rehab Report"><h4 class="report-title text-accent">Phase 1 & 2 Rehab</h4><p class="report-description">Gentle, early-stage progress tracking.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NYTT INNHOLD: MODAL FOR KARUSELL (Flyttet inn i scene-0) -->
+        <div class="report-modal-overlay" id="report-modal-overlay">
+            <div class="report-modal-content">
+                <button class="close-report-modal" aria-label="Close report">&times;</button>
+                <div class="report-modal-image-container">
+                    <img id="modal-report-image" src="" alt="Enlarged report">
+                </div>
+                <div class="report-modal-text-container">
+                    <h3 id="modal-report-title"></h3>
+                    <p id="modal-report-explanation"></p>
+                    <h4>Test Battery</h4>
+                    <ul id="modal-report-tests"></ul>
+                </div>
+            </div>
+        </div>
+        <!-- 
+        ===========================================
+        SLUTT PÅ FLYTTET INNHOLD
+        ===========================================
+        -->
     </div>
     
     <!-- =========== SCENE 1: FITNESS AGE OVERSIKT =========== -->
@@ -502,6 +764,18 @@
         <iframe id="test-iframe" src="https://pwr.alphatek.no" frameborder="0" loading="lazy"></iframe>
     </div>
 
+    <!-- 
+        ===========================================
+        NYTT INNHOLD: RAPPORT-KARUSELL (Denne er nå fjernet herfra)
+        ===========================================
+    -->
+    <!-- 
+        ===========================================
+        SLUTT PÅ NYTT INNHOLD
+        ===========================================
+    -->
+
+
     <!-- =========== FIREBASE SDK OG LOGIKK =========== -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
@@ -568,7 +842,8 @@
                 let newUrl = ""; 
                 switch (sceneIdToShow) {
                     case "scene-2": case "scene-6": newUrl = "https://pwr.alphatek.no/cop"; break;
-                    case "scene-10": newUrl = "https://pwr.alphatek.no/jump"; break;
+                    // ENDRING HER: URL oppdatert
+                    case "scene-10": newUrl = "https://pwr.alphatek.no/jump-tia"; break;
                     case "scene-14": newUrl = "https://pwr.alphatek.no/pull"; break;
                     case "scene-0": case "scene-1": case "scene-18": newUrl = "https://pwr.alphatek.no"; break;
                 }
@@ -719,6 +994,97 @@
                 runApp(channelId, isFirstVisit);
             };
         }
+    </script>
+
+    <!-- NYTT INNHOLD: JAVASCRIPT FOR KARUSELL -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const reportData = {
+            'return-to-sport': {
+                title: 'Return to Sport',
+                explanation: 'Given high re-injury rates (~20-30%) post-rehab, this protocol provides a robust assessment of an athlete\'s readiness to return to play. It evaluates key performance markers from maximal plyometric capacity and limb stiffness to muscular endurance and stretch-shortening cycle (SSC) function. This data gives therapists objective insights to guide late-stage (Phase 3-4) training and track progression, minimizing the risk of re-injury.',
+                tests: ['Countermovement Jump (CMJ)', 'Single-Leg CMJ', 'Reactive Strength Index (RSI)', 'Drop Jump', 'Lateral Stability']
+            },
+            'performance': {
+                title: 'Performance Report',
+                explanation: "This battery is designed to measure explosive power, reactivity, and maximal strength, crucial metrics for improving on-court performance, jump height, and sprint speed. It's intended for any athlete in any sport.",
+                tests: ['IMTP', 'Countermovement Jump', 'Reactive Strength Index', 'Repetitive CMJ', 'Lateral Stability']
+            },
+            'shoulder-screening': {
+                title: 'Athletic Shoulder (ASH) Test',
+                explanation: 'The ASH test is a reliable and specific method for assessing isometric shoulder strength. It is used to map strength, symmetry, and weaknesses in the scapular stabilizers and glenoheral muscles, especially in athletes in sports like handball, swimming and volleyball. The test is ideal for injury prevention screening, monitoring rehabilitation progress, and making return-to-play decisions.',
+                tests: ['Isometric Strength in Abduction (Y-Position)', 'Isometric Strength in Horizontal Abduction (T-Position)', 'External Rotation Strength', 'Internal Rotation Strength']
+            },
+            'rehab-initial': {
+                title: 'Phase 1 & 2 Rehab',
+                explanation: 'This protocol is designed for the early stages of rehabilitation. It utilizes gentle, low-load assessments like isometric strength and static balance tests. This allows therapists to safely monitor neuromuscular function and track progress from the very beginning of the recovery process without compromising healing tissue, providing a clear baseline for future comparison.',
+                tests: ['Isometric Strength Test (e.g., IMTP)', 'Single-Leg Balance (Eyes open/closed)', 'Weight-Bearing Symmetry']
+            }
+        };
+
+        const reportModalOverlay = document.getElementById('report-modal-overlay');
+        const reportCards = document.querySelectorAll('.report-card');
+        const modalImage = document.getElementById('modal-report-image');
+        const modalTitle = document.getElementById('modal-report-title');
+        const modalExplanation = document.getElementById('modal-report-explanation');
+        const modalTestList = document.getElementById('modal-report-tests');
+        const closeReportModalBtn = document.querySelector('.close-report-modal');
+
+        function openReportModal(reportId) {
+            const data = reportData[reportId];
+            if (!data) return;
+            const clickedCard = document.querySelector(`.report-card[data-report-id="${reportId}"]`);
+            if (!clickedCard) return; // Sikkerhetssjekk
+            const imgSrc = clickedCard.querySelector('img').src;
+            
+            if (modalImage) modalImage.src = imgSrc;
+            if (modalImage) modalImage.alt = data.title;
+            if (modalTitle) modalTitle.textContent = data.title;
+            if (modalExplanation) modalExplanation.textContent = data.explanation;
+            
+            if (modalTestList) {
+                modalTestList.innerHTML = '';
+                data.tests.forEach(test => {
+                    const li = document.createElement('li');
+                    li.textContent = test;
+                    modalTestList.appendChild(li);
+                });
+            }
+            
+            document.body.classList.add('modal-open');
+            if (reportModalOverlay) reportModalOverlay.classList.add('is-visible');
+        }
+
+        function closeReportModal() {
+            if (!reportModalOverlay) return;
+            document.body.classList.remove('modal-open');
+            reportModalOverlay.classList.remove('is-visible');
+        }
+
+        reportCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const reportId = card.dataset.reportId;
+                openReportModal(reportId);
+            });
+        });
+
+        if (closeReportModalBtn) {
+            closeReportModalBtn.addEventListener('click', closeReportModal);
+        }
+        if (reportModalOverlay) {
+            reportModalOverlay.addEventListener('click', (e) => {
+                if (e.target === reportModalOverlay) {
+                    closeReportModal();
+                }
+            });
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && reportModalOverlay && reportModalOverlay.classList.contains('is-visible')) {
+                closeReportModal();
+            }
+        });
+    });
     </script>
 </body>
 </html>
