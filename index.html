@@ -4,21 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Styrt Side</title>
-    <!-- Importerer Tailwind CSS for rask og pen styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importerer Tailwind CSS for rask og pen styling --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Importerer QR-kode biblioteket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Importerer QR-kode biblioteket --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- Importerer "Inter" fonten, standard for moderne UI -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Importerer "Inter" fonten, standard for moderne UI --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome for karusell-ikoner (selv om de ikke er i bruk, er det i originalkoden) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Roboto-font fra karusellen -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for karusell-ikoner (selv om de ikke er i bruk, er det i originalkoden) --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Roboto-font fra karusellen --><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
 
     <style>
@@ -436,46 +431,38 @@
 </head>
 <body class="h-full text-white">
 
-    <!-- =========== SCENE 0: SCREENSAVER (Default) =========== -->
-    <div id="scene-0" class="scene">
-        <!-- Video (Nå som bakgrunn) -->
-        <video src="https://storage.googleapis.com/intro_alphatek/videoer/Tests%20Presentation.mp4" 
+    <!-- =========== SCENE 0: SCREENSAVER (Default) =========== --><div id="scene-0" class="scene">
+        <!-- Video (Nå som bakgrunn) --><video src="https://storage.googleapis.com/intro_alphatek/videoer/Tests%20Presentation.mp4" 
                autoplay loop muted playsinline
                class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
 
-        <!-- DISKRET KANAL-ID VISNING -->
-        <div id="channel-id-display-top" 
+        <!-- DISKRET KANAL-ID VISNING --><div id="channel-id-display-top" 
              class="absolute top-4 right-4 text-xs font-mono text-emerald-400 bg-black/50 px-3 py-1 rounded-lg z-20 opacity-70">
             Laster...
         </div>
 
-        <!-- ENDRING: Container flyttet opp med pt-[20vh] og items-start -->
-        <div class="absolute inset-0 flex items-start justify-center z-10 p-8 pt-[20vh]">
-            <!-- Selve "Frosted Glass" boksen -->
-            <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-xs w-full text-center">
+        <!-- ENDRING: Container flyttet opp med pt-[10vh] og items-start, redusert max-w --><div class="absolute inset-0 flex items-start justify-center z-10 p-8 pt-10">
+            <!-- Selve "Frosted Glass" boksen --><div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-[15rem] w-full text-center">
                 
-                <!-- Stedet hvor QR-koden genereres -->
-                <div id="dynamic-qr-code" 
-                     class="w-56 h-56 mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
+                <!-- Stedet hvor QR-koden genereres --><div id="dynamic-qr-code" 
+                     class="w-48 h-48 mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
                 </div>
                 
-                <!-- Tekst under QR-koden -->
-                <h2 class="text-3xl font-medium text-white mt-6">
+                <!-- Tekst under QR-koden --><h2 class="text-3xl font-medium text-white mt-6">
                     Scan to get started
                 </h2>
             </div>
         </div>
+        
+        <!-- NYTT: Svart fade fra bunnen for å forbedre kontrast for karusellen --><div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/80 to-transparent z-5"></div>
 
         <!-- 
         ===========================================
         NYTT INNHOLD: RAPPORT-KARUSELL (Flyttet inn i scene-0)
         ===========================================
-        -->
-        <section id="reports" class="reports-section">
+        --><section id="reports" class="reports-section">
             <div class="container">
-                <!-- <div class="divider"></div> (Fjernet etter ønske) -->
-                <h2 class="section-title">Equip your medical team with reports to track rehab, return to play, and performance</h2>
-            </div>
+                <!-- <div class="divider"></div> (Fjernet etter ønske) --><!-- <h2 class="section-title">Equip your medical team with reports to track rehab, return to play, and performance</h2> (Fjernet etter ønske) --></div>
             <div class="report-carousel-container">
                 <div class="report-carousel-track">
                     <div class="report-card" data-report-id="return-to-sport"><img src="https://storage.googleapis.com/intro_alphatek/reports/Return%20to%20play.png" alt="Return to Sport Report"><h4 class="report-title text-accent">Return to Sport</h4><p class="report-description">Comprehensive readiness evaluation.</p></div>
@@ -490,8 +477,7 @@
             </div>
         </section>
 
-        <!-- NYTT INNHOLD: MODAL FOR KARUSELL (Flyttet inn i scene-0) -->
-        <div class="report-modal-overlay" id="report-modal-overlay">
+        <!-- NYTT INNHOLD: MODAL FOR KARUSELL (Flyttet inn i scene-0) --><div class="report-modal-overlay" id="report-modal-overlay">
             <div class="report-modal-content">
                 <button class="close-report-modal" aria-label="Close report">&times;</button>
                 <div class="report-modal-image-container">
@@ -509,26 +495,19 @@
         ===========================================
         SLUTT PÅ FLYTTET INNHOLD
         ===========================================
-        -->
-    </div>
+        --></div>
     
-    <!-- =========== SCENE 1: FITNESS AGE OVERSIKT =========== -->
-    <div id="scene-1" class="scene">
-        <!-- Hele scenen er nå en scrollbar kolonne -->
-        <div class="flex flex-col h-full overflow-y-auto">
+    <!-- =========== SCENE 1: FITNESS AGE OVERSIKT =========== --><div id="scene-1" class="scene">
+        <!-- Hele scenen er nå en scrollbar kolonne --><div class="flex flex-col h-full overflow-y-auto">
             
-            <!-- Topp-seksjon (Header) -->
-            <div class="h-[50vh] relative overflow-hidden flex-shrink-0">
-                <!-- Bakgrunnsvideo -->
-                <video id="scene-1-video" src="https://storage.googleapis.com/intro_alphatek/videoer/Age%20Test%202%20-%20NO%20TEXT%20ON%20-%20Alphatatek%20-%204k%20.mp4" 
+            <!-- Topp-seksjon (Header) --><div class="h-[50vh] relative overflow-hidden flex-shrink-0">
+                <!-- Bakgrunnsvideo --><video id="scene-1-video" src="https://storage.googleapis.com/intro_alphatek/videoer/Age%20Test%202%20-%20NO%20TEXT%20ON%20-%20Alphatatek%20-%204k%20.mp4" 
                        autoplay loop muted playsinline 
                        class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
                 
-                <!-- Fade fra bunnen av videoen -->
-                <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
+                <!-- Fade fra bunnen av videoen --><div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
                 
-                <!-- "Ola Nordman" Login Ikon -->
-                <div class="absolute top-6 right-8 flex items-center space-x-3 z-20">
+                <!-- "Ola Nordman" Login Ikon --><div class="absolute top-6 right-8 flex items-center space-x-3 z-20">
                     <span class="text-white text-lg font-medium">Ola Nordman</span>
                     <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
@@ -537,8 +516,7 @@
                     </div>
                 </div>
 
-                <!-- Teksten i en "Frosted Glass"-boks -->
-                <div class="absolute inset-0 flex flex-col items-center justify-center z-10 text-center p-8">
+                <!-- Teksten i en "Frosted Glass"-boks --><div class="absolute inset-0 flex flex-col items-center justify-center z-10 text-center p-8">
                     
                     <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-8">
                         <h1 class="text-3xl font-semibold opacity-80 mb-1">Fitness Age</h1>
@@ -553,8 +531,7 @@
                 </div>
             </div>
 
-            <!-- Bunn-seksjon (Testliste) -->
-            <div class="bg-black p-6 flex-grow relative overflow-hidden">
+            <!-- Bunn-seksjon (Testliste) --><div class="bg-black p-6 flex-grow relative overflow-hidden">
                 <div class="aurora-blur absolute inset-0 overflow-hidden z-0">
                     <div class="aurora-shape-1" style="opacity: 0.2;"></div>
                     <div class="aurora-shape-2" style="opacity: 0.15;"></div>
@@ -621,8 +598,7 @@
         </div>
     </div>
 
-    <!-- =========== BALANSE VENSTRE FLYT =========== -->
-    <div id="scene-2" class="scene">
+    <!-- =========== BALANSE VENSTRE FLYT =========== --><div id="scene-2" class="scene">
         <video id="video-bal-left" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" autoplay loop muted playsinline class="video-crop-top"></video>
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -641,8 +617,7 @@
     </div>
     <div id="scene-go-1" class="scene scene-go"> <div class="go-text">GO!</div> </div>
 
-    <!-- =========== BALANSE HØYRE FLYT =========== -->
-    <div id="scene-6" class="scene">
+    <!-- =========== BALANSE HØYRE FLYT =========== --><div id="scene-6" class="scene">
         <video id="video-bal-right" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Balance%20left.mp4" autoplay loop muted playsinline class="video-crop-top video-mirrored"></video>
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -661,8 +636,7 @@
     </div>
     <div id="scene-go-bal-right" class="scene scene-go"> <div class="go-text">GO!</div> </div>
 
-    <!-- =========== JUMP FLYT =========== -->
-    <div id="scene-10" class="scene">
+    <!-- =========== JUMP FLYT =========== --><div id="scene-10" class="scene">
         <video id="video-jump" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Jump.mp4" autoplay loop muted playsinline class="video-crop-top"></video>
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -681,8 +655,7 @@
     </div>
     <div id="scene-go-2" class="scene scene-go"> <div class="go-text">GO!</div> </div>
 
-    <!-- =========== PULL FLYT =========== -->
-    <div id="scene-14" class="scene">
+    <!-- =========== PULL FLYT =========== --><div id="scene-14" class="scene">
         <video id="video-pull" src="https://storage.googleapis.com/files_webpage/Instruction%20video%20(demo)/Pull.mp4" autoplay loop muted playsinline class="video-crop-top"></video>
         <div class="absolute inset-0 flex items-start justify-center z-10 p-4 pt-[30vh]">
             <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-lg w-full">
@@ -701,8 +674,7 @@
     </div>
     <div id="scene-go-3" class="scene scene-go"> <div class="go-text">GO!</div> </div>
 
-    <!-- =========== FINAL REPORT =========== -->
-    <div id="scene-18" class="scene bg-black p-8">
+    <!-- =========== FINAL REPORT =========== --><div id="scene-18" class="scene bg-black p-8">
         <div class="aurora-blur absolute inset-0 overflow-hidden z-0">
             <div class="aurora-shape-1"></div>
             <div class="aurora-shape-2"></div>
@@ -756,28 +728,14 @@
         </div>
     </div>
     
-    <!-- =========== IFRAME CONTAINER SCENE =========== -->
-    <div id="scene-iframe-container" class="scene relative">
+    <!-- =========== IFRAME CONTAINER SCENE =========== --><div id="scene-iframe-container" class="scene relative">
         <div id="iframe-url-display" class="absolute top-4 right-4 text-gray-500 text-xs z-10 p-2 bg-black/30 rounded-md">
             https://pwr.alphatek.no
         </div>
         <iframe id="test-iframe" src="https://pwr.alphatek.no" frameborder="0" loading="lazy"></iframe>
     </div>
 
-    <!-- 
-        ===========================================
-        NYTT INNHOLD: RAPPORT-KARUSELL (Denne er nå fjernet herfra)
-        ===========================================
-    -->
-    <!-- 
-        ===========================================
-        SLUTT PÅ NYTT INNHOLD
-        ===========================================
-    -->
-
-
-    <!-- =========== FIREBASE SDK OG LOGIKK =========== -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <!-- =========== FIREBASE SDK OG LOGIKK =========== --><script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <script>
@@ -996,8 +954,7 @@
         }
     </script>
 
-    <!-- NYTT INNHOLD: JAVASCRIPT FOR KARUSELL -->
-    <script>
+    <!-- NYTT INNHOLD: JAVASCRIPT FOR KARUSELL --><script>
     document.addEventListener('DOMContentLoaded', () => {
         const reportData = {
             'return-to-sport': {
