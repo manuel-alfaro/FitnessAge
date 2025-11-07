@@ -433,11 +433,11 @@
 
     <!-- =========== SCENE 0: SCREENSAVER (Default) =========== --><div id="scene-0" class="scene">
         <!-- Video (Nå som bakgrunn) --><video src="https://storage.googleapis.com/intro_alphatek/videoer/Tests%20Presentation.mp4" 
-               autoplay loop muted playsinline
-               class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
+            autoplay loop muted playsinline
+            class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
 
         <!-- DISKRET KANAL-ID VISNING --><div id="channel-id-display-top" 
-             class="absolute top-4 right-4 text-xs font-mono text-emerald-400 bg-black/50 px-3 py-1 rounded-lg z-20 opacity-70">
+            class="absolute top-4 right-4 text-xs font-mono text-emerald-400 bg-black/50 px-3 py-1 rounded-lg z-20 opacity-70">
             Laster...
         </div>
 
@@ -445,7 +445,7 @@
             <!-- Selve "Frosted Glass" boksen --><div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-[15rem] w-full text-center">
                 
                 <!-- ENDRING: Fjernet w-48 h-48, la til w-full aspect-square for å tilpasse seg forelderen --><div id="dynamic-qr-code" 
-                     class="w-full aspect-square mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
+                    class="w-full aspect-square mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
                 </div>
                 
                 <!-- Tekst under QR-koden --><h2 class="text-3xl font-medium text-white mt-6">
@@ -459,7 +459,7 @@
         <!-- 
         ===========================================
         NYTT INNHOLD: RAPPORT-KARUSELL (Flyttet inn i scene-0)
-        <!-- ===========================================
+        ===========================================
         --><section id="reports" class="reports-section">
             <div class="container">
                 <!-- <div class="divider"></div> (Fjernet etter ønske) --><!-- <h2 class="section-title">Equip your medical team with reports to track rehab, return to play, and performance</h2> (Fjernet etter ønske) --></div>
@@ -506,8 +506,8 @@
             
             <!-- Topp-seksjon (Header) --><div class="h-[50vh] relative overflow-hidden flex-shrink-0">
                 <!-- Bakgrunnsvideo --><video id="scene-1-video" src="https://storage.googleapis.com/intro_alphatek/videoer/Age%20Test%202%20-%20NO%20TEXT%20ON%20-%20Alphatatek%20-%204k%20.mp4" 
-                       autoplay loop muted playsinline 
-                       class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
+                    autoplay loop muted playsinline 
+                    class="absolute top-0 left-0 w-full h-full object-cover z-0"></video>
                 
                 <!-- Fade fra bunnen av videoen --><div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent z-10"></div>
                 
@@ -800,17 +800,54 @@
                     }
                 });
                 
+                <!-- === START PÅ FIKS === -->
                 const iframe = document.getElementById('test-iframe');
                 let newUrl = ""; 
-                switch (sceneIdToShow) {
-                    case "scene-2": case "scene-6": newUrl = "https://pwr.alphatek.no/cop"; break;
-                    // ENDRING HER: URL oppdatert
-                    case "scene-10": newUrl = "https://pwr.alphatek.no/jump_tia"; break;
-                    case "scene-14": newUrl = "https://pwr.alphatek.no/pull"; break;
-                    case "scene-0": case "scene-1": case "scene-18": newUrl = "https://pwr.alphatek.no"; break;
+                
+                // FIKS: Bytt fra sceneIdToShow til index
+                // Fordi scene-iframe-container (indeks 6, 10, 14, 18) trenger ulik URL
+                switch (index) {
+                    // IFRAME SCENER (Disse er viktigst)
+                    case 6:  // Iframe etter Balanse Venstre
+                        newUrl = "https://pwr.alphatek.no/cop"; 
+                        break;
+                    case 10: // Iframe etter Balanse Høyre
+                        newUrl = "https://pwr.alphatek.no/cop"; 
+                        break;
+                    case 14: // Iframe etter Jump
+                        newUrl = "https://pwr.alphatek.no/jump_tia"; 
+                        break;
+                    case 18: // Iframe etter Pull
+                        newUrl = "https://pwr.alphatek.no/pull"; 
+                        break;
+
+                    // INSTRUKSJONS-SCENER (Greit å forhåndslaste URL her også)
+                    case 3: // scene-2 (Balanse)
+                    case 7: // scene-6 (Balanse)
+                        newUrl = "https://pwr.alphatek.no/cop"; 
+                        break;
+                    case 11: // scene-10 (Jump)
+                        newUrl = "https://pwr.alphatek.no/jump_tia"; 
+                        break;
+                    case 15: // scene-14 (Pull)
+                        newUrl = "https://pwr.alphatek.no/pull"; 
+                        break;
+                    
+                    // ANDRE SCENER (Home, Oversikt, Rapport)
+                    case 0:  // scene-iframe-container (Home)
+                    case 1:  // scene-0 (Screensaver)
+                    case 2:  // scene-1 (Oversikt)
+                    case 19: // scene-18 (Rapport)
+                        newUrl = "https://pwr.alphatek.no"; 
+                        break;
                 }
                 
-                if (newUrl && iframe.src !== newUrl) { iframe.src = newUrl; urlDisplay.textContent = newUrl; }
+                if (newUrl && iframe.src !== newUrl) { 
+                    iframe.src = newUrl; 
+                    urlDisplay.textContent = newUrl; 
+                }
+                
+
                 if (sceneIdToShow === 'scene-iframe-container') { urlDisplay.textContent = iframe.src; }
                 if (sceneIdToShow.startsWith('scene-go-')) { autoAdvanceTimer = setTimeout(() => { showScene(index + 1); }, 1500); }
 
