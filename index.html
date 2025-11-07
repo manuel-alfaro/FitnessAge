@@ -444,8 +444,8 @@
         <!-- ENDRING: La til items-start for å hindre at boksen strekker seg --><div class="absolute inset-0 flex items-start justify-center z-10 p-8 pt-64">
             <!-- Selve "Frosted Glass" boksen --><div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl border border-white/10 p-8 max-w-[15rem] w-full text-center">
                 
-                <!-- Stedet hvor QR-koden genereres --><div id="dynamic-qr-code" 
-                     class="w-48 h-48 mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
+                <!-- ENDRING: Fjernet w-48 h-48, la til w-full aspect-square for å tilpasse seg forelderen --><div id="dynamic-qr-code" 
+                     class="w-full aspect-square mx-auto rounded-2xl border-8 border-green-600 flex items-center justify-center bg-white p-2 shadow-lg">
                 </div>
                 
                 <!-- Tekst under QR-koden --><h2 class="text-3xl font-medium text-white mt-6">
@@ -805,7 +805,7 @@
                 switch (sceneIdToShow) {
                     case "scene-2": case "scene-6": newUrl = "https://pwr.alphatek.no/cop"; break;
                     // ENDRING HER: URL oppdatert
-                    case "scene-10": newUrl = "https://pwr.alphatek.no/jump_tia"; break;
+                    case "scene-10": newUrl = "https://pwr.alphatek.no/jump-tia"; break;
                     case "scene-14": newUrl = "https://pwr.alphatek.no/pull"; break;
                     case "scene-0": case "scene-1": case "scene-18": newUrl = "https://pwr.alphatek.no"; break;
                 }
@@ -943,11 +943,16 @@
             try {
                 const qrContainer = document.getElementById("dynamic-qr-code");
                 if (typeof QRCode !== 'undefined' && qrContainer) {
-                    const qrSize = qrContainer.clientWidth; 
-                    new QRCode(qrContainer, { text: magicLink, width: qrSize, height: qrSize, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H });
-                } else {
-                    console.error("QR-kode generering feilet.");
-                }
+                // ENDRING: Beregn størrelsen basert på indre bredde, ikke ytre, for å unngå overflow
+                const style = window.getComputedStyle(qrContainer);
+                const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+                const border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+                const innerWidth = qrContainer.clientWidth - padding - border;
+
+                new QRCode(qrContainer, { text: magicLink, width: innerWidth, height: innerWidth, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H });
+            } else {
+                console.error("QR-kode generering feilet.");
+            }
             } catch (error) {
                 console.error("QR-kode krasjet:", error);
             }
