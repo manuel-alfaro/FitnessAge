@@ -794,8 +794,6 @@
                 const iframe = document.getElementById('test-iframe');
                 let newUrl = ""; 
                 
-                // FIKS: Bytt fra sceneIdToShow til index
-                // Fordi scene-iframe-container (indeks 6, 10, 14, 18) trenger ulik URL
                 switch (index) {
                     // IFRAME SCENER (Disse er viktigst)
                     case 6:  // Iframe etter Balanse Venstre
@@ -823,23 +821,17 @@
                         newUrl = "https://pwr.alphatek.no/pull"; 
                         break;
                     
-                    // ANDRE SCENER (Home, Oversikt, Rapport)
-                    
-                    // =============================================
-                    // START PÅ ENDRING (Samme som Steg 2)
-                    // =============================================
+                    // =======================================================
+                    // === FIKS 1 (av 2) HER: `case 0:` er nå separert ===
+                    // =======================================================
                     case 0:  // scene-iframe-container (Home)
-                        // IKKE SETT newUrl. La den være tom.
-                        // Dette forhindrer at den overskriver URL-en satt av "showIframeWithUrl"
+                        // IKKE GJØR NOE. Lar `newUrl` være ""
                         break; 
                     case 1:  // scene-0 (Screensaver)
                     case 2:  // scene-1 (Oversikt)
                     case 19: // scene-18 (Rapport)
                         newUrl = "https://pwr.alphatek.no"; 
                         break;
-                    // =============================================
-                    // SLUTT PÅ ENDRING
-                    // =============================================
                 }
                 
                 if (newUrl && iframe.src !== newUrl) { 
@@ -847,19 +839,10 @@
                     urlDisplay.textContent = newUrl; 
                 }
                 
-                
-                // =============================================
-                // START PÅ ENDRING (Samme som Steg 3)
-                // =============================================
-                
-                // DENNE BLOKKEN ER FJERNET:
-                // if (sceneIdToShow === 'scene-iframe-container') { 
-                //     urlDisplay.textContent = iframe.src; 
-                // }
-                
-                // =============================================
-                // SLUTT PÅ ENDRING
-                // =============================================
+                // =======================================================
+                // === FIKS 2 (av 2) HER: Linjen under er Slettet ===
+                // =======================================================
+                // if (sceneIdToShow === 'scene-iframe-container') { urlDisplay.textContent = iframe.src; }
 
                 if (sceneIdToShow.startsWith('scene-go-')) { autoAdvanceTimer = setTimeout(() => { showScene(index + 1); }, 1500); }
 
@@ -928,7 +911,6 @@
                 if (!kommandoData || !kommandoData.cmd) { console.log("Tom kommando mottatt."); return; }
                 const kommando = kommandoData.cmd;
                 
-                // ENDRET: Ny kommando for dynamisk URL
                 switch (kommando) {
                     case "showIframeWithUrl":
                         const newUrl = kommandoData.payload?.url;
@@ -938,13 +920,10 @@
                             if (iframe.src !== newUrl) {
                                 iframe.src = newUrl;
                             }
-                            // =============================================
-                            // START PÅ ENDRING (Samme som Steg 1)
-                            // =============================================
-                            urlDisplay.textContent = newUrl; // Oppdaterer tekstdisplayet
-                            // =============================================
-                            // SLUTT PÅ ENDRING
-                            // =============================================
+                            // =======================================================
+                            // === FIKS 3 (av 3) HER: `urlDisplay` oppdateres ===
+                            // =======================================================
+                            urlDisplay.textContent = newUrl; 
                             
                             showScene(0); // Viser scene 0, som er iframe-containeren
                         } else {
@@ -1000,7 +979,6 @@
             try {
                 const qrContainer = document.getElementById("dynamic-qr-code");
                 if (typeof QRCode !== 'undefined' && qrContainer) {
-                // ENDRING: Beregn størrelsen basert på indre bredde, ikke ytre, for å unngå overflow
                 const style = window.getComputedStyle(qrContainer);
                 const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
                 const border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
@@ -1019,7 +997,6 @@
             };
         }
     </script>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const reportData = {
