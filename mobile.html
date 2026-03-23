@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Age Onboarding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <style>
+        body {
+            /* Fallback font */
+            font-family: 'Inter', 'Nimbus Sans', sans-serif;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), radial-gradient(137.63% 79.91% at 29.77% 95.71%, #272313 0%, #1A3024 36.98%, #351111 66.15%, #131630 100%);
+            background-color: #191C1A;
+            color: #FFFFFF;
+            min-height: 100vh;
+        }
+
+        .bg-gradient-gold {
+            background: radial-gradient(53.65% 50% at 50% 50%, rgba(246, 180, 94, 0.8) 36.98%, rgba(122, 74, 0, 0.8) 83.34%);
+        }
+
+        .bg-gradient-dark {
+            background: radial-gradient(53.65% 50% at 50% 50%, #0A0A0C 54%, #28282A 100%);
+            mix-blend-mode: screen;
+        }
+
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(52px);
+            -webkit-backdrop-filter: blur(52px);
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(52px);
+            -webkit-backdrop-filter: blur(52px);
+        }
+        
+        .step-border {
+            border-top: 1px solid #A1A1A3;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden selection:bg-green-500/30">
+
+    <!-- Mobile Wrapper -->
+    <main class="relative w-full max-w-[393px] h-[852px] mx-auto overflow-hidden shadow-2xl sm:my-8 sm:border sm:border-white/10 sm:rounded-[40px] bg-[#191C1A]">
+        
+        <!-- Main Background Gradient -->
+        <div class="absolute inset-0 w-full h-full" style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), radial-gradient(137.63% 79.91% at 29.77% 95.71%, #272313 0%, #1A3024 36.98%, #351111 66.15%, #131630 100%);"></div>
+
+        <!-- Background Blurs -->
+        <!-- Rectangle 73 -->
+        <div class="absolute w-[367px] h-[367px] -left-[72px] -top-[146px] bg-gradient-gold origin-center -rotate-90 rounded-full blur-3xl opacity-80"></div>
+        <!-- Rectangle 76 -->
+        <div class="absolute w-[370px] h-[370px] left-[294px] -top-[149px] bg-gradient-dark origin-center -rotate-90 rounded-full blur-3xl"></div>
+        
+        <!-- Rectangle 58 Overlay -->
+        <div class="absolute inset-0 w-full h-full glass-overlay"></div>
+
+        <!-- Content Layer -->
+        <div class="relative z-10 w-full h-full flex flex-col px-4 pt-4 pb-8">
+
+            <!-- Top Navigation -->
+            <nav class="flex justify-between items-center w-full h-14">
+                <button class="flex items-center gap-1 group">
+                    <i class="fa-solid fa-arrow-left text-white text-base"></i>
+                    <span class="text-[15px] leading-tight tracking-[1px] text-white">Back</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <!-- Paired (Hidden by default based on Figma, but keeping structure) -->
+                    <div class="hidden items-center gap-1">
+                        <div class="w-1.5 h-1.5 bg-[#85FFB6] rounded-full shadow-[0_0_8px_#85FFB6]"></div>
+                        <span class="text-[12px] text-[#85FFB6]">Paired</span>
+                    </div>
+                    
+                    <button class="flex items-center gap-1 group">
+                        <span class="text-[15px] leading-tight tracking-[1px] text-white">View Clients</span>
+                        <i class="fa-solid fa-plus text-white text-sm opacity-80 group-hover:opacity-100 transition-opacity"></i>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Metadata Row (Time, Activities, Target) -->
+            <div class="mt-8 flex items-start w-full gap-8">
+                <div class="flex flex-col gap-2">
+                    <span class="text-[12px] text-white/60">Time</span>
+                    <span class="text-[12px] text-white">≈ 12minutes</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-[12px] text-white/60">Activities</span>
+                    <span class="text-[12px] text-white">3 Activities</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-[12px] text-white/60">Target</span>
+                    <span class="text-[12px] text-white">Athletes</span>
+                </div>
+            </div>
+
+            <!-- Header: Title and Icon -->
+            <div class="mt-8 flex justify-between items-start w-full pr-2">
+                <h1 class="text-[44px] font-light leading-[48px] tracking-[-2px] text-white">Fitness Age</h1>
+                <button class="p-2 opacity-80 hover:opacity-100 transition-opacity">
+                    <!-- Data Icon (Chart) -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" stroke-width="2"/>
+                        <path d="M8 16V12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 16V8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M16 16V14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Steps Section -->
+            <div class="mt-12 w-full glass-panel pt-3 rounded-2xl flex flex-col flex-grow">
+                
+                <!-- Section Title -->
+                <div class="flex items-center gap-4 pb-4">
+                    <i class="fa-solid fa-arrow-down text-[#A1A1A3] text-sm"></i>
+                    <h2 class="text-[22px] font-light text-[#A1A1A3]">Steps in this session</h2>
+                </div>
+
+                <!-- Step 01: Calibration -->
+                <div class="flex flex-col step-border py-4 w-full">
+                    <div class="flex items-center gap-4 w-full px-2 cursor-pointer group transition-colors hover:bg-white/5 rounded-lg -mx-2">
+                        <span class="text-[22px] font-light text-[#A1A1A3] w-8">01</span>
+                        <span class="text-[22px] font-light text-white flex-grow group-hover:text-green-200 transition-colors">Calibration</span>
+                    </div>
+                </div>
+
+                <!-- Step 02: Tests (03) -->
+                <div class="flex flex-col step-border py-4 w-full">
+                    <div class="flex items-center gap-4 w-full px-2 cursor-pointer group transition-colors hover:bg-white/5 rounded-lg -mx-2">
+                        <span class="text-[22px] font-light text-[#A1A1A3] w-8">02</span>
+                        <span class="text-[22px] font-light text-white flex-grow group-hover:text-green-200 transition-colors">Tests (03)</span>
+                        <i class="fa-solid fa-chevron-down text-[#A1A1A3] text-sm transform group-hover:-rotate-90 transition-transform"></i>
+                    </div>
+                    <!-- Nested QR Code (hidden by default) -->
+                    <div class="hidden flex-col items-center gap-8 mt-6">
+                        <div class="w-[240px] h-[240px] bg-white rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center justify-center p-4">
+                            <!-- Placeholder QR -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Example" alt="QR Code" class="w-full h-full object-contain">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 03: Results -->
+                <div class="flex flex-col step-border py-4 w-full">
+                    <div class="flex items-center gap-4 w-full px-2 cursor-pointer group transition-colors hover:bg-white/5 rounded-lg -mx-2">
+                        <span class="text-[22px] font-light text-[#A1A1A3] w-8">03</span>
+                        <span class="text-[22px] font-light text-white flex-grow group-hover:text-green-200 transition-colors">Results</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Action Button -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-32px)]">
+                <button class="w-full h-[80px] bg-[#85FFB6] rounded-[24px] flex justify-between items-center px-6 shadow-[0_0_30px_rgba(133,255,182,0.3)] glass-panel hover:bg-[#6AE09B] transition-colors group">
+                    <span class="text-[17px] text-black font-medium mx-auto relative left-3">View Clients</span>
+                    <i class="fa-solid fa-arrow-right text-black text-lg group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
